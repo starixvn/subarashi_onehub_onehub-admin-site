@@ -19,4 +19,13 @@ export default defineConfig({
       '@': path.resolve(__dirname, './src'),
     },
   },
+server: {
+    proxy: {
+      '/apiV2': {
+        target: 'https://backoffice.uatnova.com',
+        changeOrigin: true,
+        secure: false,
+      },
+    },
+  },
 })

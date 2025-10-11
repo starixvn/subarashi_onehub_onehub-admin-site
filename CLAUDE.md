@@ -141,3 +141,5 @@ Some components have been modified for RTL support and other enhancements:
 - Mock auth flow available in `src/stores/auth-store.ts`
 - Access token stored in cookies as JSON string
 - Custom authentication implementation using Zustand + cookies
+
+### important -- do not add comment 

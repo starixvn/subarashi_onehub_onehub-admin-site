@@ -1,12 +1,10 @@
-import { useState } from 'react'
 import { z } from 'zod'
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
-import {  useNavigate } from '@tanstack/react-router'
+import { useNavigate } from '@tanstack/react-router'
 import { Loader2, LogIn } from 'lucide-react'
-import { toast } from 'sonner'
-import { useAuthStore } from '@/stores/auth-store'
-import { sleep, cn } from '@/lib/utils'
+import { useSignIn } from '@/features/auth/api/mutations'
+import { cn } from '@/lib/utils'
 import { Button } from '@/components/ui/button'
 import {
   Form,
@@ -20,10 +18,8 @@ import { Input } from '@/components/ui/input'
 import { PasswordInput } from '@/components/password-input'
 
 const formSchema = z.object({
-  account: z.string({
-    error: (iss) => (iss.input === '' ? 'Please enter your email' : undefined),
-  }),
-  password: z
+  userName: z.string().min(1, 'Please enter your username'),
+  userPwd: z
     .string()
     .min(1, 'Please enter your password')
     .min(7, 'Password must be at least 7 characters long'),
@@ -38,45 +34,24 @@ export function UserAuthForm({
   redirectTo,
   ...props
 }: UserAuthFormProps) {
-  const [isLoading, setIsLoading] = useState(false)
   const navigate = useNavigate()
-  const { auth } = useAuthStore()
+  const signIn = useSignIn()
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      account: '',
-      password: '',
+      userName: '',
+      userPwd: '',
     },
   })
 
-  function onSubmit(data: z.infer<typeof formSchema>) {
-    setIsLoading(true)
-
-    // Mock successful authentication
-    const mockUser = {
-      accountNo: 'ACC001',
-      email: data.account,
-      role: ['user'],
-      exp: Date.now() + 24 * 60 * 60 * 1000, // 24 hours from now
-    }
-
-    toast.promise(sleep(2000), {
-      loading: 'Signing in...',
-      success: () => {
-        setIsLoading(false)
-
-        // Set user and access token
-        auth.setUser(mockUser)
-        auth.setAccessToken('mock-access-token')
-
+  async function onSubmit(data: z.infer<typeof formSchema>) {
+    signIn.mutate(data, {
+      onSuccess: () => {
         // Redirect to the stored location or default to dashboard
         const targetPath = redirectTo || '/'
         navigate({ to: targetPath, replace: true })
-
-        return `Welcome back, ${data.account}!`
       },
-      error: 'Error',
     })
   }
 
@@ -89,10 +64,10 @@ export function UserAuthForm({
       >
         <FormField
           control={form.control}
-          name='account'
+          name='userName'
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Account</FormLabel>
+              <FormLabel>Username</FormLabel>
               <FormControl>
                 <Input placeholder='admin' {...field} />
               </FormControl>
@@ -102,7 +77,7 @@ export function UserAuthForm({
         />
         <FormField
           control={form.control}
-          name='password'
+          name='userPwd'
           render={({ field }) => (
             <FormItem className='relative'>
               <FormLabel>Password</FormLabel>
@@ -113,8 +88,8 @@ export function UserAuthForm({
             </FormItem>
           )}
         />
-        <Button className='mt-2' disabled={isLoading}>
-          {isLoading ? <Loader2 className='animate-spin' /> : <LogIn />}
+        <Button className='mt-2' disabled={signIn.isPending}>
+          {signIn.isPending ? <Loader2 className='animate-spin' /> : <LogIn />}
           Sign in
         </Button>
       </form>

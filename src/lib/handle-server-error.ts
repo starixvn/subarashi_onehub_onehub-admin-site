@@ -1,24 +1,20 @@
 import { AxiosError } from 'axios'
 import { toast } from 'sonner'
+import type { IAxiosResponse } from '@/lib/types/common'
 
 export function handleServerError(error: unknown) {
-  // eslint-disable-next-line no-console
-  console.log(error)
-
-  let errMsg = 'Something went wrong!'
-
-  if (
-    error &&
-    typeof error === 'object' &&
-    'status' in error &&
-    Number(error.status) === 204
-  ) {
-    errMsg = 'Content not found.'
-  }
-
   if (error instanceof AxiosError) {
-    errMsg = error.response?.data.title
+    const response = error.response?.data as IAxiosResponse | undefined
+    if (response?.message) {
+      toast.error(response.message)
+      return
+    }
   }
 
-  toast.error(errMsg)
+  if (error instanceof Error) {
+    toast.error(error.message)
+    return
+  }
+
+  toast.error('Something went wrong!')
 }
