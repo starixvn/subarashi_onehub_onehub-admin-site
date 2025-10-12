@@ -7,7 +7,6 @@ export type {
   GetUserMenuRequest,
   GetUserMenuResponse,
   MenuItemData,
-  AuthUserData,
   AuthUser,
   SignInInput,
   SignInResult,

@@ -5,27 +5,27 @@ export interface SignInRequest {
   userPwd: string
 }
 
-export interface SignInResponseData {
-  user?: AuthUserData
-  [key: string]: unknown
-}
-
-export type SignInResponse = IAxiosResponse<SignInResponseData>
+export type SignInResponse = IAxiosResponse<'admin'>
 
 export interface GetUserDataRequest {
   siteId: number
 }
 
 export interface GetUserDataResponseData {
-  user?: AuthUserData
-  [key: string]: unknown
+  userId: string
+  userName: string
+  userpwd: string
+  isSuper: boolean
+  loginTime: string
+  status: number
+  userType: number
+  refId: number
 }
 
 export type GetUserDataResponse = IAxiosResponse<GetUserDataResponseData>
 
 export interface CheckSignInResponseData {
-  isSignedIn: boolean
-  [key: string]: unknown
+  isLogin: boolean
 }
 
 export type CheckSignInResponse = IAxiosResponse<CheckSignInResponseData>
@@ -42,36 +42,16 @@ export interface MenuItemData {
   icon?: string
   children?: MenuItemData[]
   permissions?: string[]
-  [key: string]: unknown
 }
 
 export interface GetUserMenuResponseData {
   menu?: MenuItemData[]
-  [key: string]: unknown
 }
 
 export type GetUserMenuResponse = IAxiosResponse<GetUserMenuResponseData>
 
-export interface AuthUserData {
-  accountNo?: string
-  email?: string
-  userName?: string
-  name?: string
-  role?: string[]
-  roles?: string[]
-  permissions?: string[]
-  siteId?: number
-  [key: string]: unknown
-}
-
-export interface AuthUser {
-  accountNo: string
-  email: string
-  userName: string
-  name?: string
-  roles: string[]
-  permissions: string[]
-  siteId?: number
+export interface AuthUser extends GetUserDataResponseData {
+  isLogin: boolean
 }
 
 export interface SignInInput {

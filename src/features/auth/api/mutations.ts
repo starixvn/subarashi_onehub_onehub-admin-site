@@ -1,9 +1,9 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query'
 import { toast } from 'sonner'
-import { useAuthStore, mapUserDataToAuthUser } from '@/stores/auth-store'
+import { useAuthStore } from '@/stores/auth-store'
+import type { SignInInput } from '../types'
 import { authApi } from './client'
 import { authKeys } from './query'
-import type { SignInInput } from '../types'
 
 export function useSignIn() {
   const queryClient = useQueryClient()
@@ -15,8 +15,7 @@ export function useSignIn() {
 
       if (signInResponse.errorCode === 0) {
         const userDataResponse = await authApi.getUserData(1)
-        const user = mapUserDataToAuthUser(userDataResponse)
-        auth.setUser(user)
+        auth.setUser({ ...userDataResponse.data, isLogin: true })
         await queryClient.invalidateQueries({ queryKey: authKeys.all() })
       }
     },
@@ -30,31 +29,13 @@ export function useSignIn() {
   })
 }
 
-export function useGetUserData() {
-  const queryClient = useQueryClient()
-  const { auth } = useAuthStore()
-
-  return useMutation({
-    mutationFn: async (siteId: number = 1) => {
-      return await authApi.getUserData(siteId)
-    },
-
-    onSuccess: (data, siteId) => {
-      const user = mapUserDataToAuthUser(data)
-      auth.setUser(user)
-      queryClient.setQueryData(authKeys.userDataBySiteId(siteId), data)
-    },
-
-    onError: (error: Error) => {
-      toast.error(error.message)
-    },
-  })
-}
-
 export function useCheckSignIn() {
+
   return useMutation({
     mutationFn: async () => {
-      return await authApi.checkSignIn()
+      await authApi.checkSignIn()
+
+      return { isLogin: true }
     },
 
     onError: (error: Error) => {
@@ -63,23 +44,7 @@ export function useCheckSignIn() {
   })
 }
 
-export function useGetUserMenu() {
-  return useMutation({
-    mutationFn: async ({
-      lang = 'en',
-      siteId = 1,
-    }: {
-      lang?: string
-      siteId?: number
-    }) => {
-      return await authApi.getUserMenu(lang, siteId)
-    },
 
-    onError: (error: Error) => {
-      toast.error(error.message)
-    },
-  })
-}
 
 export function useSignOut() {
   const queryClient = useQueryClient()

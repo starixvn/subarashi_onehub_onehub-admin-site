@@ -19,7 +19,7 @@ export default defineConfig({
       '@': path.resolve(__dirname, './src'),
     },
   },
-server: {
+  server: {
     proxy: {
       '/apiV2': {
         target: 'https://backoffice.uatnova.com',

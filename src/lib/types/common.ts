@@ -1,19 +1,10 @@
 export interface IAxiosResponse<T = unknown> {
+  data: T
+  totalPages?: number
+  pageNumber?: number
+  rowCount?: number
   errorCode: number
-  message?: string
-  data?: T
-  [key: string]: unknown
-}
-
-export interface PaginationParams {
-  page: number
-  pageSize: number
-}
-
-export interface PaginatedResponse<T> {
-  data: T[]
-  page: number
-  pageSize: number
-  total: number
-  totalPages: number
+  message: string
+  rawErrorCode?: string
+  rawMessage?: string
 }

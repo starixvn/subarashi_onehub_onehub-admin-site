@@ -3,7 +3,6 @@ import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useNavigate } from '@tanstack/react-router'
 import { Loader2, LogIn } from 'lucide-react'
-import { useSignIn } from '@/features/auth/api/mutations'
 import { cn } from '@/lib/utils'
 import { Button } from '@/components/ui/button'
 import {
@@ -16,6 +15,7 @@ import {
 } from '@/components/ui/form'
 import { Input } from '@/components/ui/input'
 import { PasswordInput } from '@/components/password-input'
+import { useSignIn } from '@/features/auth/api/mutations'
 
 const formSchema = z.object({
   userName: z.string().min(1, 'Please enter your username'),
@@ -48,7 +48,6 @@ export function UserAuthForm({
   async function onSubmit(data: z.infer<typeof formSchema>) {
     signIn.mutate(data, {
       onSuccess: () => {
-        // Redirect to the stored location or default to dashboard
         const targetPath = redirectTo || '/'
         navigate({ to: targetPath, replace: true })
       },

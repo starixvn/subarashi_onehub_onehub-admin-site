@@ -1,4 +1,3 @@
-
 export interface IAxiosResponse<T> {
   data: T
   errorCode: number

@@ -19,9 +19,8 @@ export const authApi = {
   },
 
   async checkSignIn(): Promise<CheckSignInResponse> {
-    const response = await apiClient.post<CheckSignInResponse>(
-      '/Home/CheckSignIn'
-    )
+    const response =
+      await apiClient.post<CheckSignInResponse>('/Home/CheckSignIn')
     return response.data
   },
 

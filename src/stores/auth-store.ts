@@ -1,28 +1,5 @@
 import { create } from 'zustand'
-import type { GetUserDataResponse, AuthUser } from '@/features/auth/types'
-
-export function mapUserDataToAuthUser(
-  response: GetUserDataResponse
-): AuthUser {
-  const userData = response.data?.user
-
-  return {
-    accountNo:
-      (userData?.accountNo as string) ||
-      (userData?.userName as string) ||
-      (userData?.name as string) ||
-      'unknown',
-    email: (userData?.email as string) || (userData?.userName as string) || '',
-    userName:
-      (userData?.userName as string) ||
-      (userData?.accountNo as string) ||
-      'unknown',
-    name: userData?.name as string | undefined,
-    roles: (userData?.roles as string[]) || (userData?.role as string[]) || ['user'],
-    permissions: (userData?.permissions as string[]) || [],
-    siteId: userData?.siteId as number | undefined,
-  }
-}
+import type { AuthUser } from '@/features/auth/types'
 
 interface AuthState {
   auth: {

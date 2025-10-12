@@ -142,4 +142,8 @@ Some components have been modified for RTL support and other enhancements:
 - Access token stored in cookies as JSON string
 - Custom authentication implementation using Zustand + cookies
 
-### important -- do not add comment 
+## Comment Policy
+- ❌ Do not add any comments
+- ❌ Do not add explanatory text
+- ✅ Code should be clear and readable with self-documenting variable and function names
+- ✅ Only add comments for extremely complex logic
