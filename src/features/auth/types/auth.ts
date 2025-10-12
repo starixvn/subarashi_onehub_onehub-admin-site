@@ -25,7 +25,7 @@ export interface GetUserDataResponseData {
 export type GetUserDataResponse = IAxiosResponse<GetUserDataResponseData>
 
 export interface CheckSignInResponseData {
-  isLogin: boolean
+  isAuthenticated: boolean
 }
 
 export type CheckSignInResponse = IAxiosResponse<CheckSignInResponseData>
@@ -51,7 +51,7 @@ export interface GetUserMenuResponseData {
 export type GetUserMenuResponse = IAxiosResponse<GetUserMenuResponseData>
 
 export interface AuthUser extends GetUserDataResponseData {
-  isLogin: boolean
+  isAuthenticated: boolean
 }
 
 export interface SignInInput {

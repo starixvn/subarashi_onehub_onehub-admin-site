@@ -1,6 +1,5 @@
-import { useNavigate } from '@tanstack/react-router'
 import { ConfirmDialog } from '@/components/confirm-dialog'
-import { useSignOut } from '@/features/auth/api/mutations'
+import { useAuth } from '@/context/auth-provider'
 
 interface SignOutDialogProps {
   open: boolean
@@ -8,16 +7,10 @@ interface SignOutDialogProps {
 }
 
 export function SignOutDialog({ open, onOpenChange }: SignOutDialogProps) {
-  const navigate = useNavigate()
-  const signOut = useSignOut()
+  const { logout, isLogoutPending } = useAuth()
 
-  const handleSignOut = () => {
-    signOut.mutate(undefined, {
-      onSuccess: () => {
-        onOpenChange(false)
-        navigate({ to: '/sign-in', replace: true })
-      },
-    })
+  const handleSignOut = async () => {
+    await logout()
   }
 
   return (
@@ -28,6 +21,7 @@ export function SignOutDialog({ open, onOpenChange }: SignOutDialogProps) {
       desc='Are you sure you want to sign out? You will need to sign in again to access your account.'
       confirmText='Sign out'
       handleConfirm={handleSignOut}
+      isLoading={isLogoutPending}
       className='sm:max-w-sm'
     />
   )

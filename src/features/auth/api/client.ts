@@ -5,8 +5,6 @@ import type {
   GetUserDataRequest,
   GetUserDataResponse,
   CheckSignInResponse,
-  GetUserMenuRequest,
-  GetUserMenuResponse,
 } from '../types'
 
 export const authApi = {
@@ -31,17 +29,7 @@ export const authApi = {
     )
     return response.data
   },
-
-  async getUserMenu(
-    lang: string = 'en',
-    siteId: number = 1
-  ): Promise<GetUserMenuResponse> {
-    const response = await apiClient.post<GetUserMenuResponse>(
-      '/Permission/GetUserMenu',
-      { lang, siteId } as GetUserMenuRequest
-    )
-    return response.data
-  },
+  
 
   async signOut(): Promise<void> {
     await apiClient.post('/Home/SignOut')

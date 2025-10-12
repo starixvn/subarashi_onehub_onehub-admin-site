@@ -6,6 +6,7 @@ import { Toaster } from '@/components/ui/sonner'
 import { NavigationProgress } from '@/components/navigation-progress'
 import { GeneralError } from '@/features/errors/general-error'
 import { NotFoundError } from '@/features/errors/not-found-error'
+import type { AuthContextValue } from '@/context/auth-provider'
 
 function RootComponent() {
   return (
@@ -25,6 +26,7 @@ function RootComponent() {
 
 export const Route = createRootRouteWithContext<{
   queryClient: QueryClient
+  auth: AuthContextValue
 }>()({
   component: RootComponent,
   notFoundComponent: NotFoundError,

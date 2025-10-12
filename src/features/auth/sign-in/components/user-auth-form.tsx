@@ -3,6 +3,7 @@ import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useNavigate } from '@tanstack/react-router'
 import { Loader2, LogIn } from 'lucide-react'
+import { toast } from 'sonner'
 import { cn } from '@/lib/utils'
 import { Button } from '@/components/ui/button'
 import {
@@ -15,7 +16,7 @@ import {
 } from '@/components/ui/form'
 import { Input } from '@/components/ui/input'
 import { PasswordInput } from '@/components/password-input'
-import { useSignIn } from '@/features/auth/api/mutations'
+import { useAuth } from '@/context/auth-provider'
 
 const formSchema = z.object({
   userName: z.string().min(1, 'Please enter your username'),
@@ -35,7 +36,7 @@ export function UserAuthForm({
   ...props
 }: UserAuthFormProps) {
   const navigate = useNavigate()
-  const signIn = useSignIn()
+  const { login, isLoginPending } = useAuth()
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -46,12 +47,13 @@ export function UserAuthForm({
   })
 
   async function onSubmit(data: z.infer<typeof formSchema>) {
-    signIn.mutate(data, {
-      onSuccess: () => {
-        const targetPath = redirectTo || '/'
-        navigate({ to: targetPath, replace: true })
-      },
-    })
+    try {
+      await login(data)
+      const targetPath = redirectTo || '/'
+      navigate({ to: targetPath, replace: true })
+    } catch (error) {
+      toast.error(error instanceof Error ? error.message : 'Login failed')
+    }
   }
 
   return (
@@ -87,8 +89,8 @@ export function UserAuthForm({
             </FormItem>
           )}
         />
-        <Button className='mt-2' disabled={signIn.isPending}>
-          {signIn.isPending ? <Loader2 className='animate-spin' /> : <LogIn />}
+        <Button className='mt-2' disabled={isLoginPending}>
+          {isLoginPending ? <Loader2 className='animate-spin' /> : <LogIn />}
           Sign in
         </Button>
       </form>

@@ -147,3 +147,10 @@ Some components have been modified for RTL support and other enhancements:
 - ❌ Do not add explanatory text
 - ✅ Code should be clear and readable with self-documenting variable and function names
 - ✅ Only add comments for extremely complex logic
+
+### Performance Optimization Hooks
+**Avoid premature optimization:**
+- ❌ Do NOT use `useCallback` without specific performance reasons
+- ❌ Do NOT use `useMemo` without specific performance reasons
+- ✅ Only use them when there's a documented performance issue
+- ✅ Prefer simple, readable code over optimization

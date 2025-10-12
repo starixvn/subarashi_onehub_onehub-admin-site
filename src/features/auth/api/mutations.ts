@@ -15,7 +15,7 @@ export function useSignIn() {
 
       if (signInResponse.errorCode === 0) {
         const userDataResponse = await authApi.getUserData(1)
-        auth.setUser({ ...userDataResponse.data, isLogin: true })
+        auth.setUser({ ...userDataResponse.data, isAuthenticated: true })
         await queryClient.invalidateQueries({ queryKey: authKeys.all() })
       }
     },
@@ -35,7 +35,7 @@ export function useCheckSignIn() {
     mutationFn: async () => {
       await authApi.checkSignIn()
 
-      return { isLogin: true }
+      return { isAuthenticated: true }
     },
 
     onError: (error: Error) => {
