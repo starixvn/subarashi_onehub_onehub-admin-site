@@ -45,16 +45,16 @@ pnpm preview            # Preview production build
 src/
 ├── assets/           # Brand icons, custom icons, logos
 ├── components/       # Shared components
-│   ├── ui/          # ShadcnUI base components (some customized for RTL)
-│   ├── layout/      # Layout components (sidebar, header, nav)
-│   └── ...          # Other shared components
+│   ├── ui/           # ShadcnUI base components (some customized for RTL)
+│   ├── layout/       # Layout components (sidebar, header, nav)
+│   └── ...           # Other shared components
 ├── context/          # React Context providers (theme, direction, font, layout, search)
 ├── features/         # Feature modules (organized by domain)
-│   ├── auth/        # Authentication pages & components
-│   ├── dashboard/   # Dashboard page
-│   ├── tasks/       # Tasks management
-│   ├── users/       # User management
-│   └── settings/    # Settings pages
+│   ├── auth/         # Authentication pages & components
+│   ├── dashboard/    # Dashboard page
+│   ├── tasks/        # Tasks management
+│   ├── users/        # User management
+│   └── settings/     # Settings pages
 ├── hooks/            # Custom React hooks
 ├── lib/              # Utility functions
 ├── routes/           # TanStack Router route files

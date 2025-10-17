@@ -1,6 +1,6 @@
 import { create } from 'zustand'
-import type { AuthUser } from '@/features/auth/types'
 import { tokenService } from '@/lib/auth/token-service'
+import type { AuthUser } from '@/features/auth/types'
 
 interface AuthState {
   auth: {

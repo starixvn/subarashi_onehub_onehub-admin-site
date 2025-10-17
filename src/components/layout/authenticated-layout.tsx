@@ -5,7 +5,12 @@ import { LayoutProvider } from '@/context/layout-provider'
 import { SearchProvider } from '@/context/search-provider'
 import { SidebarInset, SidebarProvider } from '@/components/ui/sidebar'
 import { AppSidebar } from '@/components/layout/app-sidebar'
+import { Header } from '@/components/layout/header'
+import { NotificationButton } from '@/components/notification-button'
+import { ProfileDropdown } from '@/components/profile-dropdown'
+import { Search } from '@/components/search'
 import { SkipToMain } from '@/components/skip-to-main'
+import { ThemeSwitch } from '@/components/theme-switch'
 
 type AuthenticatedLayoutProps = {
   children?: React.ReactNode
@@ -33,6 +38,19 @@ export function AuthenticatedLayout({ children }: AuthenticatedLayoutProps) {
               'peer-data-[variant=inset]:has-[[data-layout=fixed]]:h-[calc(100svh-(var(--spacing)*4))]'
             )}
           >
+            <Header fixed>
+              <div className='flex w-full items-center justify-between gap-4'>
+                <div className='flex-shrink-0' />
+                <div className='mx-auto flex max-w-2xl flex-1 justify-center'>
+                  <Search variant='default' className='w-full' />
+                </div>
+                <div className='flex flex-shrink-0 items-center space-x-4'>
+                  <NotificationButton />
+                  <ThemeSwitch />
+                  <ProfileDropdown />
+                </div>
+              </div>
+            </Header>
             {children ?? <Outlet />}
           </SidebarInset>
         </SidebarProvider>

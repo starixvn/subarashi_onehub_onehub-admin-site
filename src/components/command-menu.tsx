@@ -1,6 +1,15 @@
 import React from 'react'
 import { useNavigate } from '@tanstack/react-router'
-import { ArrowRight, ChevronRight, Laptop, Moon, Sun } from 'lucide-react'
+import {
+  ArrowRight,
+  ChevronRight,
+  Laptop,
+  Moon,
+  Sun,
+  UserCog,
+  Bell,
+  Monitor,
+} from 'lucide-react'
 import { useSearch } from '@/context/search-provider'
 import { useTheme } from '@/context/theme-provider'
 import {
@@ -70,6 +79,29 @@ export function CommandMenu() {
               })}
             </CommandGroup>
           ))}
+          <CommandSeparator />
+          <CommandGroup heading='Others'>
+            <CommandItem
+              onSelect={() => runCommand(() => navigate({ to: '/profile' }))}
+            >
+              <UserCog />
+              <span>Profile</span>
+            </CommandItem>
+            <CommandItem
+              onSelect={() =>
+                runCommand(() => navigate({ to: '/notifications' }))
+              }
+            >
+              <Bell />
+              <span>Notifications</span>
+            </CommandItem>
+            <CommandItem
+              onSelect={() => runCommand(() => navigate({ to: '/settings' }))}
+            >
+              <Monitor />
+              <span>Settings</span>
+            </CommandItem>
+          </CommandGroup>
           <CommandSeparator />
           <CommandGroup heading='Theme'>
             <CommandItem onSelect={() => runCommand(() => setTheme('light'))}>

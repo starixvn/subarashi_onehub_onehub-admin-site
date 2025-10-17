@@ -1,5 +1,5 @@
-import { ConfirmDialog } from '@/components/confirm-dialog'
 import { useAuth } from '@/context/auth-provider'
+import { ConfirmDialog } from '@/components/confirm-dialog'
 
 interface SignOutDialogProps {
   open: boolean

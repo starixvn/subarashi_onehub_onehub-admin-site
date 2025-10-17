@@ -18,18 +18,19 @@ import { Route as errors403RouteImport } from './routes/(errors)/403'
 import { Route as errors401RouteImport } from './routes/(errors)/401'
 import { Route as authSignInRouteImport } from './routes/(auth)/sign-in'
 import { Route as authForgotPasswordRouteImport } from './routes/(auth)/forgot-password'
-import { Route as AuthenticatedSettingsRouteRouteImport } from './routes/_authenticated/settings/route'
-import { Route as AuthenticatedUsersIndexRouteImport } from './routes/_authenticated/users/index'
-import { Route as AuthenticatedTasksIndexRouteImport } from './routes/_authenticated/tasks/index'
 import { Route as AuthenticatedSettingsIndexRouteImport } from './routes/_authenticated/settings/index'
+import { Route as AuthenticatedProfileIndexRouteImport } from './routes/_authenticated/profile/index'
+import { Route as AuthenticatedNotificationsIndexRouteImport } from './routes/_authenticated/notifications/index'
 import { Route as AuthenticatedHelpCenterIndexRouteImport } from './routes/_authenticated/help-center/index'
-import { Route as AuthenticatedChatsIndexRouteImport } from './routes/_authenticated/chats/index'
-import { Route as AuthenticatedAppsIndexRouteImport } from './routes/_authenticated/apps/index'
-import { Route as AuthenticatedSettingsNotificationsRouteImport } from './routes/_authenticated/settings/notifications'
-import { Route as AuthenticatedSettingsDisplayRouteImport } from './routes/_authenticated/settings/display'
-import { Route as AuthenticatedSettingsAppearanceRouteImport } from './routes/_authenticated/settings/appearance'
-import { Route as AuthenticatedSettingsAccountRouteImport } from './routes/_authenticated/settings/account'
+import { Route as AuthenticatedCampaignManagementIndexRouteImport } from './routes/_authenticated/campaign-management/index'
 import { Route as AuthenticatedErrorsErrorRouteImport } from './routes/_authenticated/errors/$error'
+import { Route as AuthenticatedLinkGeneratorLinkManagementIndexRouteImport } from './routes/_authenticated/link-generator/link-management/index'
+import { Route as AuthenticatedLinkGeneratorGenerateLinkIndexRouteImport } from './routes/_authenticated/link-generator/generate-link/index'
+import { Route as AuthenticatedLinkGeneratorComponentManagementIndexRouteImport } from './routes/_authenticated/link-generator/component-management/index'
+import { Route as AuthenticatedLandingPageCmsRegisterFormManagementIndexRouteImport } from './routes/_authenticated/landing-page-cms/register-form-management/index'
+import { Route as AuthenticatedLandingPageCmsPageManagementIndexRouteImport } from './routes/_authenticated/landing-page-cms/page-management/index'
+import { Route as AuthenticatedLandingPageCmsPageBuilderIndexRouteImport } from './routes/_authenticated/landing-page-cms/page-builder/index'
+import { Route as AuthenticatedLandingPageCmsAssetUploaderIndexRouteImport } from './routes/_authenticated/landing-page-cms/asset-uploader/index'
 
 const AuthenticatedRouteRoute = AuthenticatedRouteRouteImport.update({
   id: '/_authenticated',
@@ -75,27 +76,23 @@ const authForgotPasswordRoute = authForgotPasswordRouteImport.update({
   path: '/forgot-password',
   getParentRoute: () => rootRouteImport,
 } as any)
-const AuthenticatedSettingsRouteRoute =
-  AuthenticatedSettingsRouteRouteImport.update({
-    id: '/settings',
-    path: '/settings',
-    getParentRoute: () => AuthenticatedRouteRoute,
-  } as any)
-const AuthenticatedUsersIndexRoute = AuthenticatedUsersIndexRouteImport.update({
-  id: '/users/',
-  path: '/users/',
-  getParentRoute: () => AuthenticatedRouteRoute,
-} as any)
-const AuthenticatedTasksIndexRoute = AuthenticatedTasksIndexRouteImport.update({
-  id: '/tasks/',
-  path: '/tasks/',
-  getParentRoute: () => AuthenticatedRouteRoute,
-} as any)
 const AuthenticatedSettingsIndexRoute =
   AuthenticatedSettingsIndexRouteImport.update({
-    id: '/',
-    path: '/',
-    getParentRoute: () => AuthenticatedSettingsRouteRoute,
+    id: '/settings/',
+    path: '/settings/',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any)
+const AuthenticatedProfileIndexRoute =
+  AuthenticatedProfileIndexRouteImport.update({
+    id: '/profile/',
+    path: '/profile/',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any)
+const AuthenticatedNotificationsIndexRoute =
+  AuthenticatedNotificationsIndexRouteImport.update({
+    id: '/notifications/',
+    path: '/notifications/',
+    getParentRoute: () => AuthenticatedRouteRoute,
   } as any)
 const AuthenticatedHelpCenterIndexRoute =
   AuthenticatedHelpCenterIndexRouteImport.update({
@@ -103,39 +100,11 @@ const AuthenticatedHelpCenterIndexRoute =
     path: '/help-center/',
     getParentRoute: () => AuthenticatedRouteRoute,
   } as any)
-const AuthenticatedChatsIndexRoute = AuthenticatedChatsIndexRouteImport.update({
-  id: '/chats/',
-  path: '/chats/',
-  getParentRoute: () => AuthenticatedRouteRoute,
-} as any)
-const AuthenticatedAppsIndexRoute = AuthenticatedAppsIndexRouteImport.update({
-  id: '/apps/',
-  path: '/apps/',
-  getParentRoute: () => AuthenticatedRouteRoute,
-} as any)
-const AuthenticatedSettingsNotificationsRoute =
-  AuthenticatedSettingsNotificationsRouteImport.update({
-    id: '/notifications',
-    path: '/notifications',
-    getParentRoute: () => AuthenticatedSettingsRouteRoute,
-  } as any)
-const AuthenticatedSettingsDisplayRoute =
-  AuthenticatedSettingsDisplayRouteImport.update({
-    id: '/display',
-    path: '/display',
-    getParentRoute: () => AuthenticatedSettingsRouteRoute,
-  } as any)
-const AuthenticatedSettingsAppearanceRoute =
-  AuthenticatedSettingsAppearanceRouteImport.update({
-    id: '/appearance',
-    path: '/appearance',
-    getParentRoute: () => AuthenticatedSettingsRouteRoute,
-  } as any)
-const AuthenticatedSettingsAccountRoute =
-  AuthenticatedSettingsAccountRouteImport.update({
-    id: '/account',
-    path: '/account',
-    getParentRoute: () => AuthenticatedSettingsRouteRoute,
+const AuthenticatedCampaignManagementIndexRoute =
+  AuthenticatedCampaignManagementIndexRouteImport.update({
+    id: '/campaign-management/',
+    path: '/campaign-management/',
+    getParentRoute: () => AuthenticatedRouteRoute,
   } as any)
 const AuthenticatedErrorsErrorRoute =
   AuthenticatedErrorsErrorRouteImport.update({
@@ -143,9 +112,50 @@ const AuthenticatedErrorsErrorRoute =
     path: '/errors/$error',
     getParentRoute: () => AuthenticatedRouteRoute,
   } as any)
+const AuthenticatedLinkGeneratorLinkManagementIndexRoute =
+  AuthenticatedLinkGeneratorLinkManagementIndexRouteImport.update({
+    id: '/link-generator/link-management/',
+    path: '/link-generator/link-management/',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any)
+const AuthenticatedLinkGeneratorGenerateLinkIndexRoute =
+  AuthenticatedLinkGeneratorGenerateLinkIndexRouteImport.update({
+    id: '/link-generator/generate-link/',
+    path: '/link-generator/generate-link/',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any)
+const AuthenticatedLinkGeneratorComponentManagementIndexRoute =
+  AuthenticatedLinkGeneratorComponentManagementIndexRouteImport.update({
+    id: '/link-generator/component-management/',
+    path: '/link-generator/component-management/',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any)
+const AuthenticatedLandingPageCmsRegisterFormManagementIndexRoute =
+  AuthenticatedLandingPageCmsRegisterFormManagementIndexRouteImport.update({
+    id: '/landing-page-cms/register-form-management/',
+    path: '/landing-page-cms/register-form-management/',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any)
+const AuthenticatedLandingPageCmsPageManagementIndexRoute =
+  AuthenticatedLandingPageCmsPageManagementIndexRouteImport.update({
+    id: '/landing-page-cms/page-management/',
+    path: '/landing-page-cms/page-management/',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any)
+const AuthenticatedLandingPageCmsPageBuilderIndexRoute =
+  AuthenticatedLandingPageCmsPageBuilderIndexRouteImport.update({
+    id: '/landing-page-cms/page-builder/',
+    path: '/landing-page-cms/page-builder/',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any)
+const AuthenticatedLandingPageCmsAssetUploaderIndexRoute =
+  AuthenticatedLandingPageCmsAssetUploaderIndexRouteImport.update({
+    id: '/landing-page-cms/asset-uploader/',
+    path: '/landing-page-cms/asset-uploader/',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any)
 
 export interface FileRoutesByFullPath {
-  '/settings': typeof AuthenticatedSettingsRouteRouteWithChildren
   '/forgot-password': typeof authForgotPasswordRoute
   '/sign-in': typeof authSignInRoute
   '/401': typeof errors401Route
@@ -155,16 +165,18 @@ export interface FileRoutesByFullPath {
   '/503': typeof errors503Route
   '/': typeof AuthenticatedIndexRoute
   '/errors/$error': typeof AuthenticatedErrorsErrorRoute
-  '/settings/account': typeof AuthenticatedSettingsAccountRoute
-  '/settings/appearance': typeof AuthenticatedSettingsAppearanceRoute
-  '/settings/display': typeof AuthenticatedSettingsDisplayRoute
-  '/settings/notifications': typeof AuthenticatedSettingsNotificationsRoute
-  '/apps': typeof AuthenticatedAppsIndexRoute
-  '/chats': typeof AuthenticatedChatsIndexRoute
+  '/campaign-management': typeof AuthenticatedCampaignManagementIndexRoute
   '/help-center': typeof AuthenticatedHelpCenterIndexRoute
-  '/settings/': typeof AuthenticatedSettingsIndexRoute
-  '/tasks': typeof AuthenticatedTasksIndexRoute
-  '/users': typeof AuthenticatedUsersIndexRoute
+  '/notifications': typeof AuthenticatedNotificationsIndexRoute
+  '/profile': typeof AuthenticatedProfileIndexRoute
+  '/settings': typeof AuthenticatedSettingsIndexRoute
+  '/landing-page-cms/asset-uploader': typeof AuthenticatedLandingPageCmsAssetUploaderIndexRoute
+  '/landing-page-cms/page-builder': typeof AuthenticatedLandingPageCmsPageBuilderIndexRoute
+  '/landing-page-cms/page-management': typeof AuthenticatedLandingPageCmsPageManagementIndexRoute
+  '/landing-page-cms/register-form-management': typeof AuthenticatedLandingPageCmsRegisterFormManagementIndexRoute
+  '/link-generator/component-management': typeof AuthenticatedLinkGeneratorComponentManagementIndexRoute
+  '/link-generator/generate-link': typeof AuthenticatedLinkGeneratorGenerateLinkIndexRoute
+  '/link-generator/link-management': typeof AuthenticatedLinkGeneratorLinkManagementIndexRoute
 }
 export interface FileRoutesByTo {
   '/forgot-password': typeof authForgotPasswordRoute
@@ -176,21 +188,22 @@ export interface FileRoutesByTo {
   '/503': typeof errors503Route
   '/': typeof AuthenticatedIndexRoute
   '/errors/$error': typeof AuthenticatedErrorsErrorRoute
-  '/settings/account': typeof AuthenticatedSettingsAccountRoute
-  '/settings/appearance': typeof AuthenticatedSettingsAppearanceRoute
-  '/settings/display': typeof AuthenticatedSettingsDisplayRoute
-  '/settings/notifications': typeof AuthenticatedSettingsNotificationsRoute
-  '/apps': typeof AuthenticatedAppsIndexRoute
-  '/chats': typeof AuthenticatedChatsIndexRoute
+  '/campaign-management': typeof AuthenticatedCampaignManagementIndexRoute
   '/help-center': typeof AuthenticatedHelpCenterIndexRoute
+  '/notifications': typeof AuthenticatedNotificationsIndexRoute
+  '/profile': typeof AuthenticatedProfileIndexRoute
   '/settings': typeof AuthenticatedSettingsIndexRoute
-  '/tasks': typeof AuthenticatedTasksIndexRoute
-  '/users': typeof AuthenticatedUsersIndexRoute
+  '/landing-page-cms/asset-uploader': typeof AuthenticatedLandingPageCmsAssetUploaderIndexRoute
+  '/landing-page-cms/page-builder': typeof AuthenticatedLandingPageCmsPageBuilderIndexRoute
+  '/landing-page-cms/page-management': typeof AuthenticatedLandingPageCmsPageManagementIndexRoute
+  '/landing-page-cms/register-form-management': typeof AuthenticatedLandingPageCmsRegisterFormManagementIndexRoute
+  '/link-generator/component-management': typeof AuthenticatedLinkGeneratorComponentManagementIndexRoute
+  '/link-generator/generate-link': typeof AuthenticatedLinkGeneratorGenerateLinkIndexRoute
+  '/link-generator/link-management': typeof AuthenticatedLinkGeneratorLinkManagementIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/_authenticated': typeof AuthenticatedRouteRouteWithChildren
-  '/_authenticated/settings': typeof AuthenticatedSettingsRouteRouteWithChildren
   '/(auth)/forgot-password': typeof authForgotPasswordRoute
   '/(auth)/sign-in': typeof authSignInRoute
   '/(errors)/401': typeof errors401Route
@@ -200,21 +213,22 @@ export interface FileRoutesById {
   '/(errors)/503': typeof errors503Route
   '/_authenticated/': typeof AuthenticatedIndexRoute
   '/_authenticated/errors/$error': typeof AuthenticatedErrorsErrorRoute
-  '/_authenticated/settings/account': typeof AuthenticatedSettingsAccountRoute
-  '/_authenticated/settings/appearance': typeof AuthenticatedSettingsAppearanceRoute
-  '/_authenticated/settings/display': typeof AuthenticatedSettingsDisplayRoute
-  '/_authenticated/settings/notifications': typeof AuthenticatedSettingsNotificationsRoute
-  '/_authenticated/apps/': typeof AuthenticatedAppsIndexRoute
-  '/_authenticated/chats/': typeof AuthenticatedChatsIndexRoute
+  '/_authenticated/campaign-management/': typeof AuthenticatedCampaignManagementIndexRoute
   '/_authenticated/help-center/': typeof AuthenticatedHelpCenterIndexRoute
+  '/_authenticated/notifications/': typeof AuthenticatedNotificationsIndexRoute
+  '/_authenticated/profile/': typeof AuthenticatedProfileIndexRoute
   '/_authenticated/settings/': typeof AuthenticatedSettingsIndexRoute
-  '/_authenticated/tasks/': typeof AuthenticatedTasksIndexRoute
-  '/_authenticated/users/': typeof AuthenticatedUsersIndexRoute
+  '/_authenticated/landing-page-cms/asset-uploader/': typeof AuthenticatedLandingPageCmsAssetUploaderIndexRoute
+  '/_authenticated/landing-page-cms/page-builder/': typeof AuthenticatedLandingPageCmsPageBuilderIndexRoute
+  '/_authenticated/landing-page-cms/page-management/': typeof AuthenticatedLandingPageCmsPageManagementIndexRoute
+  '/_authenticated/landing-page-cms/register-form-management/': typeof AuthenticatedLandingPageCmsRegisterFormManagementIndexRoute
+  '/_authenticated/link-generator/component-management/': typeof AuthenticatedLinkGeneratorComponentManagementIndexRoute
+  '/_authenticated/link-generator/generate-link/': typeof AuthenticatedLinkGeneratorGenerateLinkIndexRoute
+  '/_authenticated/link-generator/link-management/': typeof AuthenticatedLinkGeneratorLinkManagementIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
-    | '/settings'
     | '/forgot-password'
     | '/sign-in'
     | '/401'
@@ -224,16 +238,18 @@ export interface FileRouteTypes {
     | '/503'
     | '/'
     | '/errors/$error'
-    | '/settings/account'
-    | '/settings/appearance'
-    | '/settings/display'
-    | '/settings/notifications'
-    | '/apps'
-    | '/chats'
+    | '/campaign-management'
     | '/help-center'
-    | '/settings/'
-    | '/tasks'
-    | '/users'
+    | '/notifications'
+    | '/profile'
+    | '/settings'
+    | '/landing-page-cms/asset-uploader'
+    | '/landing-page-cms/page-builder'
+    | '/landing-page-cms/page-management'
+    | '/landing-page-cms/register-form-management'
+    | '/link-generator/component-management'
+    | '/link-generator/generate-link'
+    | '/link-generator/link-management'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/forgot-password'
@@ -245,20 +261,21 @@ export interface FileRouteTypes {
     | '/503'
     | '/'
     | '/errors/$error'
-    | '/settings/account'
-    | '/settings/appearance'
-    | '/settings/display'
-    | '/settings/notifications'
-    | '/apps'
-    | '/chats'
+    | '/campaign-management'
     | '/help-center'
+    | '/notifications'
+    | '/profile'
     | '/settings'
-    | '/tasks'
-    | '/users'
+    | '/landing-page-cms/asset-uploader'
+    | '/landing-page-cms/page-builder'
+    | '/landing-page-cms/page-management'
+    | '/landing-page-cms/register-form-management'
+    | '/link-generator/component-management'
+    | '/link-generator/generate-link'
+    | '/link-generator/link-management'
   id:
     | '__root__'
     | '/_authenticated'
-    | '/_authenticated/settings'
     | '/(auth)/forgot-password'
     | '/(auth)/sign-in'
     | '/(errors)/401'
@@ -268,16 +285,18 @@ export interface FileRouteTypes {
     | '/(errors)/503'
     | '/_authenticated/'
     | '/_authenticated/errors/$error'
-    | '/_authenticated/settings/account'
-    | '/_authenticated/settings/appearance'
-    | '/_authenticated/settings/display'
-    | '/_authenticated/settings/notifications'
-    | '/_authenticated/apps/'
-    | '/_authenticated/chats/'
+    | '/_authenticated/campaign-management/'
     | '/_authenticated/help-center/'
+    | '/_authenticated/notifications/'
+    | '/_authenticated/profile/'
     | '/_authenticated/settings/'
-    | '/_authenticated/tasks/'
-    | '/_authenticated/users/'
+    | '/_authenticated/landing-page-cms/asset-uploader/'
+    | '/_authenticated/landing-page-cms/page-builder/'
+    | '/_authenticated/landing-page-cms/page-management/'
+    | '/_authenticated/landing-page-cms/register-form-management/'
+    | '/_authenticated/link-generator/component-management/'
+    | '/_authenticated/link-generator/generate-link/'
+    | '/_authenticated/link-generator/link-management/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -356,33 +375,26 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof authForgotPasswordRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/_authenticated/settings': {
-      id: '/_authenticated/settings'
-      path: '/settings'
-      fullPath: '/settings'
-      preLoaderRoute: typeof AuthenticatedSettingsRouteRouteImport
-      parentRoute: typeof AuthenticatedRouteRoute
-    }
-    '/_authenticated/users/': {
-      id: '/_authenticated/users/'
-      path: '/users'
-      fullPath: '/users'
-      preLoaderRoute: typeof AuthenticatedUsersIndexRouteImport
-      parentRoute: typeof AuthenticatedRouteRoute
-    }
-    '/_authenticated/tasks/': {
-      id: '/_authenticated/tasks/'
-      path: '/tasks'
-      fullPath: '/tasks'
-      preLoaderRoute: typeof AuthenticatedTasksIndexRouteImport
-      parentRoute: typeof AuthenticatedRouteRoute
-    }
     '/_authenticated/settings/': {
       id: '/_authenticated/settings/'
-      path: '/'
-      fullPath: '/settings/'
+      path: '/settings'
+      fullPath: '/settings'
       preLoaderRoute: typeof AuthenticatedSettingsIndexRouteImport
-      parentRoute: typeof AuthenticatedSettingsRouteRoute
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/profile/': {
+      id: '/_authenticated/profile/'
+      path: '/profile'
+      fullPath: '/profile'
+      preLoaderRoute: typeof AuthenticatedProfileIndexRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/notifications/': {
+      id: '/_authenticated/notifications/'
+      path: '/notifications'
+      fullPath: '/notifications'
+      preLoaderRoute: typeof AuthenticatedNotificationsIndexRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
     }
     '/_authenticated/help-center/': {
       id: '/_authenticated/help-center/'
@@ -391,47 +403,12 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedHelpCenterIndexRouteImport
       parentRoute: typeof AuthenticatedRouteRoute
     }
-    '/_authenticated/chats/': {
-      id: '/_authenticated/chats/'
-      path: '/chats'
-      fullPath: '/chats'
-      preLoaderRoute: typeof AuthenticatedChatsIndexRouteImport
+    '/_authenticated/campaign-management/': {
+      id: '/_authenticated/campaign-management/'
+      path: '/campaign-management'
+      fullPath: '/campaign-management'
+      preLoaderRoute: typeof AuthenticatedCampaignManagementIndexRouteImport
       parentRoute: typeof AuthenticatedRouteRoute
-    }
-    '/_authenticated/apps/': {
-      id: '/_authenticated/apps/'
-      path: '/apps'
-      fullPath: '/apps'
-      preLoaderRoute: typeof AuthenticatedAppsIndexRouteImport
-      parentRoute: typeof AuthenticatedRouteRoute
-    }
-    '/_authenticated/settings/notifications': {
-      id: '/_authenticated/settings/notifications'
-      path: '/notifications'
-      fullPath: '/settings/notifications'
-      preLoaderRoute: typeof AuthenticatedSettingsNotificationsRouteImport
-      parentRoute: typeof AuthenticatedSettingsRouteRoute
-    }
-    '/_authenticated/settings/display': {
-      id: '/_authenticated/settings/display'
-      path: '/display'
-      fullPath: '/settings/display'
-      preLoaderRoute: typeof AuthenticatedSettingsDisplayRouteImport
-      parentRoute: typeof AuthenticatedSettingsRouteRoute
-    }
-    '/_authenticated/settings/appearance': {
-      id: '/_authenticated/settings/appearance'
-      path: '/appearance'
-      fullPath: '/settings/appearance'
-      preLoaderRoute: typeof AuthenticatedSettingsAppearanceRouteImport
-      parentRoute: typeof AuthenticatedSettingsRouteRoute
-    }
-    '/_authenticated/settings/account': {
-      id: '/_authenticated/settings/account'
-      path: '/account'
-      fullPath: '/settings/account'
-      preLoaderRoute: typeof AuthenticatedSettingsAccountRouteImport
-      parentRoute: typeof AuthenticatedSettingsRouteRoute
     }
     '/_authenticated/errors/$error': {
       id: '/_authenticated/errors/$error'
@@ -440,52 +417,98 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedErrorsErrorRouteImport
       parentRoute: typeof AuthenticatedRouteRoute
     }
+    '/_authenticated/link-generator/link-management/': {
+      id: '/_authenticated/link-generator/link-management/'
+      path: '/link-generator/link-management'
+      fullPath: '/link-generator/link-management'
+      preLoaderRoute: typeof AuthenticatedLinkGeneratorLinkManagementIndexRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/link-generator/generate-link/': {
+      id: '/_authenticated/link-generator/generate-link/'
+      path: '/link-generator/generate-link'
+      fullPath: '/link-generator/generate-link'
+      preLoaderRoute: typeof AuthenticatedLinkGeneratorGenerateLinkIndexRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/link-generator/component-management/': {
+      id: '/_authenticated/link-generator/component-management/'
+      path: '/link-generator/component-management'
+      fullPath: '/link-generator/component-management'
+      preLoaderRoute: typeof AuthenticatedLinkGeneratorComponentManagementIndexRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/landing-page-cms/register-form-management/': {
+      id: '/_authenticated/landing-page-cms/register-form-management/'
+      path: '/landing-page-cms/register-form-management'
+      fullPath: '/landing-page-cms/register-form-management'
+      preLoaderRoute: typeof AuthenticatedLandingPageCmsRegisterFormManagementIndexRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/landing-page-cms/page-management/': {
+      id: '/_authenticated/landing-page-cms/page-management/'
+      path: '/landing-page-cms/page-management'
+      fullPath: '/landing-page-cms/page-management'
+      preLoaderRoute: typeof AuthenticatedLandingPageCmsPageManagementIndexRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/landing-page-cms/page-builder/': {
+      id: '/_authenticated/landing-page-cms/page-builder/'
+      path: '/landing-page-cms/page-builder'
+      fullPath: '/landing-page-cms/page-builder'
+      preLoaderRoute: typeof AuthenticatedLandingPageCmsPageBuilderIndexRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/landing-page-cms/asset-uploader/': {
+      id: '/_authenticated/landing-page-cms/asset-uploader/'
+      path: '/landing-page-cms/asset-uploader'
+      fullPath: '/landing-page-cms/asset-uploader'
+      preLoaderRoute: typeof AuthenticatedLandingPageCmsAssetUploaderIndexRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
   }
 }
-
-interface AuthenticatedSettingsRouteRouteChildren {
-  AuthenticatedSettingsAccountRoute: typeof AuthenticatedSettingsAccountRoute
-  AuthenticatedSettingsAppearanceRoute: typeof AuthenticatedSettingsAppearanceRoute
-  AuthenticatedSettingsDisplayRoute: typeof AuthenticatedSettingsDisplayRoute
-  AuthenticatedSettingsNotificationsRoute: typeof AuthenticatedSettingsNotificationsRoute
-  AuthenticatedSettingsIndexRoute: typeof AuthenticatedSettingsIndexRoute
-}
-
-const AuthenticatedSettingsRouteRouteChildren: AuthenticatedSettingsRouteRouteChildren =
-  {
-    AuthenticatedSettingsAccountRoute: AuthenticatedSettingsAccountRoute,
-    AuthenticatedSettingsAppearanceRoute: AuthenticatedSettingsAppearanceRoute,
-    AuthenticatedSettingsDisplayRoute: AuthenticatedSettingsDisplayRoute,
-    AuthenticatedSettingsNotificationsRoute:
-      AuthenticatedSettingsNotificationsRoute,
-    AuthenticatedSettingsIndexRoute: AuthenticatedSettingsIndexRoute,
-  }
-
-const AuthenticatedSettingsRouteRouteWithChildren =
-  AuthenticatedSettingsRouteRoute._addFileChildren(
-    AuthenticatedSettingsRouteRouteChildren,
-  )
 
 interface AuthenticatedRouteRouteChildren {
-  AuthenticatedSettingsRouteRoute: typeof AuthenticatedSettingsRouteRouteWithChildren
   AuthenticatedIndexRoute: typeof AuthenticatedIndexRoute
   AuthenticatedErrorsErrorRoute: typeof AuthenticatedErrorsErrorRoute
-  AuthenticatedAppsIndexRoute: typeof AuthenticatedAppsIndexRoute
-  AuthenticatedChatsIndexRoute: typeof AuthenticatedChatsIndexRoute
+  AuthenticatedCampaignManagementIndexRoute: typeof AuthenticatedCampaignManagementIndexRoute
   AuthenticatedHelpCenterIndexRoute: typeof AuthenticatedHelpCenterIndexRoute
-  AuthenticatedTasksIndexRoute: typeof AuthenticatedTasksIndexRoute
-  AuthenticatedUsersIndexRoute: typeof AuthenticatedUsersIndexRoute
+  AuthenticatedNotificationsIndexRoute: typeof AuthenticatedNotificationsIndexRoute
+  AuthenticatedProfileIndexRoute: typeof AuthenticatedProfileIndexRoute
+  AuthenticatedSettingsIndexRoute: typeof AuthenticatedSettingsIndexRoute
+  AuthenticatedLandingPageCmsAssetUploaderIndexRoute: typeof AuthenticatedLandingPageCmsAssetUploaderIndexRoute
+  AuthenticatedLandingPageCmsPageBuilderIndexRoute: typeof AuthenticatedLandingPageCmsPageBuilderIndexRoute
+  AuthenticatedLandingPageCmsPageManagementIndexRoute: typeof AuthenticatedLandingPageCmsPageManagementIndexRoute
+  AuthenticatedLandingPageCmsRegisterFormManagementIndexRoute: typeof AuthenticatedLandingPageCmsRegisterFormManagementIndexRoute
+  AuthenticatedLinkGeneratorComponentManagementIndexRoute: typeof AuthenticatedLinkGeneratorComponentManagementIndexRoute
+  AuthenticatedLinkGeneratorGenerateLinkIndexRoute: typeof AuthenticatedLinkGeneratorGenerateLinkIndexRoute
+  AuthenticatedLinkGeneratorLinkManagementIndexRoute: typeof AuthenticatedLinkGeneratorLinkManagementIndexRoute
 }
 
 const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
-  AuthenticatedSettingsRouteRoute: AuthenticatedSettingsRouteRouteWithChildren,
   AuthenticatedIndexRoute: AuthenticatedIndexRoute,
   AuthenticatedErrorsErrorRoute: AuthenticatedErrorsErrorRoute,
-  AuthenticatedAppsIndexRoute: AuthenticatedAppsIndexRoute,
-  AuthenticatedChatsIndexRoute: AuthenticatedChatsIndexRoute,
+  AuthenticatedCampaignManagementIndexRoute:
+    AuthenticatedCampaignManagementIndexRoute,
   AuthenticatedHelpCenterIndexRoute: AuthenticatedHelpCenterIndexRoute,
-  AuthenticatedTasksIndexRoute: AuthenticatedTasksIndexRoute,
-  AuthenticatedUsersIndexRoute: AuthenticatedUsersIndexRoute,
+  AuthenticatedNotificationsIndexRoute: AuthenticatedNotificationsIndexRoute,
+  AuthenticatedProfileIndexRoute: AuthenticatedProfileIndexRoute,
+  AuthenticatedSettingsIndexRoute: AuthenticatedSettingsIndexRoute,
+  AuthenticatedLandingPageCmsAssetUploaderIndexRoute:
+    AuthenticatedLandingPageCmsAssetUploaderIndexRoute,
+  AuthenticatedLandingPageCmsPageBuilderIndexRoute:
+    AuthenticatedLandingPageCmsPageBuilderIndexRoute,
+  AuthenticatedLandingPageCmsPageManagementIndexRoute:
+    AuthenticatedLandingPageCmsPageManagementIndexRoute,
+  AuthenticatedLandingPageCmsRegisterFormManagementIndexRoute:
+    AuthenticatedLandingPageCmsRegisterFormManagementIndexRoute,
+  AuthenticatedLinkGeneratorComponentManagementIndexRoute:
+    AuthenticatedLinkGeneratorComponentManagementIndexRoute,
+  AuthenticatedLinkGeneratorGenerateLinkIndexRoute:
+    AuthenticatedLinkGeneratorGenerateLinkIndexRoute,
+  AuthenticatedLinkGeneratorLinkManagementIndexRoute:
+    AuthenticatedLinkGeneratorLinkManagementIndexRoute,
 }
 
 const AuthenticatedRouteRouteWithChildren =

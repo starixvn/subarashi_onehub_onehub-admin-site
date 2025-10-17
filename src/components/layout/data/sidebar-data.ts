@@ -1,135 +1,55 @@
-import {
-  LayoutDashboard,
-  Monitor,
-  ListTodo,
-  HelpCircle,
-  Bell,
-  Package,
-  Palette,
-  Settings,
-  Wrench,
-  UserCog,
-  Users,
-  MessagesSquare,
-  ShieldCheck,
-  AudioWaveform,
-  Command,
-  GalleryVerticalEnd,
-} from 'lucide-react'
+import { Megaphone, LayoutTemplate, Link2 } from 'lucide-react'
 import { type SidebarData } from '../types'
 
 export const sidebarData: SidebarData = {
-  user: {
-    name: 'satnaing',
-    email: 'satnaingdev@gmail.com',
-    avatar: '/avatars/shadcn.jpg',
-  },
-  teams: [
-    {
-      name: 'Shadcn Admin',
-      logo: Command,
-      plan: 'Vite + ShadcnUI',
-    },
-    {
-      name: 'Acme Inc',
-      logo: GalleryVerticalEnd,
-      plan: 'Enterprise',
-    },
-    {
-      name: 'Acme Corp.',
-      logo: AudioWaveform,
-      plan: 'Startup',
-    },
-  ],
   navGroups: [
     {
-      title: 'General',
+      title: 'Menu',
       items: [
         {
-          title: 'Dashboard',
-          url: '/',
-          icon: LayoutDashboard,
+          title: 'Campaign Management',
+          url: '/campaign-management',
+          icon: Megaphone,
         },
         {
-          title: 'Tasks',
-          url: '/tasks',
-          icon: ListTodo,
-        },
-        {
-          title: 'Apps',
-          url: '/apps',
-          icon: Package,
-        },
-        {
-          title: 'Chats',
-          url: '/chats',
-          badge: '3',
-          icon: MessagesSquare,
-        },
-        {
-          title: 'Users',
-          url: '/users',
-          icon: Users,
-        },
-      ],
-    },
-    {
-      title: 'Pages',
-      items: [
-        {
-          title: 'Auth',
-          icon: ShieldCheck,
+          title: 'Landing Page CMS',
+          icon: LayoutTemplate,
           items: [
             {
-              title: 'Sign In',
-              url: '/sign-in',
+              title: 'Page Management',
+              url: '/landing-page-cms/page-management',
             },
             {
-              title: 'Forgot Password',
-              url: '/forgot-password',
-            }
-          ],
-        },
-      ],
-    },
-    {
-      title: 'Other',
-      items: [
-        {
-          title: 'Settings',
-          icon: Settings,
-          items: [
-            {
-              title: 'Profile',
-              url: '/settings',
-              icon: UserCog,
+              title: 'Page Builder',
+              url: '/landing-page-cms/page-builder',
             },
             {
-              title: 'Account',
-              url: '/settings/account',
-              icon: Wrench,
+              title: 'Asset Uploader',
+              url: '/landing-page-cms/asset-uploader',
             },
             {
-              title: 'Appearance',
-              url: '/settings/appearance',
-              icon: Palette,
-            },
-            {
-              title: 'Notifications',
-              url: '/settings/notifications',
-              icon: Bell,
-            },
-            {
-              title: 'Display',
-              url: '/settings/display',
-              icon: Monitor,
+              title: 'Register Form Management',
+              url: '/landing-page-cms/register-form-management',
             },
           ],
         },
         {
-          title: 'Help Center',
-          url: '/help-center',
-          icon: HelpCircle,
+          title: 'Link Generator',
+          icon: Link2,
+          items: [
+            {
+              title: 'Generate Link',
+              url: '/link-generator/generate-link',
+            },
+            {
+              title: 'Link Management',
+              url: '/link-generator/link-management',
+            },
+            {
+              title: 'Component Management',
+              url: '/link-generator/component-management',
+            },
+          ],
         },
       ],
     },
