@@ -1,6 +1,5 @@
 import { createFileRoute, redirect } from '@tanstack/react-router'
-import { apiClient } from '@/lib/api/client'
-import type { CheckSignInResponse } from '@/features/auth/types'
+import { tokenService } from '@/lib/auth/token-service'
 import { AuthenticatedLayout } from '@/components/layout/authenticated-layout'
 
 function AuthenticatedRoute() {
@@ -9,18 +8,9 @@ function AuthenticatedRoute() {
 
 export const Route = createFileRoute('/_authenticated')({
   beforeLoad: async ({ location }) => {
-    try {
-      const response = await apiClient.post<CheckSignInResponse>('/Home/CheckSignIn')
+    const token = tokenService.getAccessToken()
 
-      if (response.data.errorCode !== 0) {
-        throw redirect({
-          to: '/sign-in',
-          search: {
-            redirect: location.href,
-          },
-        })
-      }
-    } catch (error) {
+    if (!token) {
       throw redirect({
         to: '/sign-in',
         search: {

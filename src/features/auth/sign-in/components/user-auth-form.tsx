@@ -5,6 +5,7 @@ import { useNavigate } from '@tanstack/react-router'
 import { Loader2, LogIn } from 'lucide-react'
 import { toast } from 'sonner'
 import { cn } from '@/lib/utils'
+import { useAuth } from '@/context/auth-provider'
 import { Button } from '@/components/ui/button'
 import {
   Form,
@@ -16,11 +17,10 @@ import {
 } from '@/components/ui/form'
 import { Input } from '@/components/ui/input'
 import { PasswordInput } from '@/components/password-input'
-import { useAuth } from '@/context/auth-provider'
 
 const formSchema = z.object({
-  userName: z.string().min(1, 'Please enter your username'),
-  userPwd: z
+  username: z.string().min(1, 'Please enter your username'),
+  password: z
     .string()
     .min(1, 'Please enter your password')
     .min(7, 'Password must be at least 7 characters long'),
@@ -41,8 +41,8 @@ export function UserAuthForm({
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      userName: '',
-      userPwd: '',
+      username: '',
+      password: '',
     },
   })
 
@@ -65,7 +65,7 @@ export function UserAuthForm({
       >
         <FormField
           control={form.control}
-          name='userName'
+          name='username'
           render={({ field }) => (
             <FormItem>
               <FormLabel>Username</FormLabel>
@@ -78,7 +78,7 @@ export function UserAuthForm({
         />
         <FormField
           control={form.control}
-          name='userPwd'
+          name='password'
           render={({ field }) => (
             <FormItem className='relative'>
               <FormLabel>Password</FormLabel>

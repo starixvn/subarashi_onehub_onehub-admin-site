@@ -21,8 +21,8 @@ export default defineConfig({
   },
   server: {
     proxy: {
-      '/apiV2': {
-        target: 'https://backoffice.uatnova.com',
+      '/api': {
+        target: 'https://localhost:3001',
         changeOrigin: true,
         secure: false,
       },

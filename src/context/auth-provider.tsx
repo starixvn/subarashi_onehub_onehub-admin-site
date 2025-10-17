@@ -2,10 +2,9 @@ import { createContext, useContext, useState, useEffect } from 'react'
 import { useMutation, useQueryClient } from '@tanstack/react-query'
 import { toast } from 'sonner'
 import { authApi } from '@/features/auth/api/client'
-import type {
-  SignInRequest,
-  AuthUser,
-} from '@/features/auth/types'
+import { tokenService } from '@/lib/auth/token-service'
+import { useAuthStore } from '@/stores/auth-store'
+import type { SignInRequest, AuthUser } from '@/features/auth/types'
 
 type AuthProviderProps = {
   children: React.ReactNode
@@ -19,7 +18,6 @@ export type AuthContextValue = {
   isLogoutPending: boolean
   login: (credentials: SignInRequest) => Promise<void>
   logout: () => Promise<void>
-  checkAuth: () => Promise<boolean>
 }
 
 const AuthContext = createContext<AuthContextValue | undefined>(undefined)
@@ -28,51 +26,55 @@ export function AuthProvider({ children }: AuthProviderProps) {
   const [user, setUser] = useState<AuthUser | null>(null)
   const [isLoading, setIsLoading] = useState(true)
   const queryClient = useQueryClient()
+  const { setAccessToken } = useAuthStore.getState().auth
 
   const loginMutation = useMutation({
     mutationFn: async (credentials: SignInRequest) => {
-      const signInResponse = await authApi.signIn(credentials)
+      const loginResponse = await authApi.login(credentials)
 
-      if (signInResponse.errorCode === 0) {
-        const userDataResponse = await authApi.getUserData(1)
+      if (loginResponse.errorCode === 0 && loginResponse.result) {
+        const { accessToken } = loginResponse.result
+        const userData = tokenService.extractUserData(accessToken)
 
-        if (userDataResponse.errorCode === 0) {
-          return { ...userDataResponse.data, isAuthenticated: true }
+        if (!userData) {
+          throw new Error('Failed to extract user data from token')
         }
+
+        const userId = tokenService.getUserIdFromToken(accessToken)
+        tokenService.setAccessToken(accessToken)
+        tokenService.setUserId(userId)
+
+        return {
+          ...userData,
+          isAuthenticated: true,
+        } as AuthUser
       }
 
-      throw new Error(signInResponse.message || 'Login failed')
+      throw new Error(loginResponse.errorMessage || 'Login failed')
     },
     onSuccess: (userData) => {
       setUser(userData)
+      setAccessToken(tokenService.getAccessToken())
       toast.success('Login successful')
     },
     onError: () => {
       setUser(null)
+      tokenService.clearTokens()
     },
   })
 
   const logoutMutation = useMutation({
     mutationFn: async () => {
-      await authApi.signOut()
+      await authApi.logout()
       setUser(null)
+      setAccessToken(null)
       queryClient.clear()
     },
     onSuccess: () => {
       toast.success('Signed out successfully')
-      // /sign-in router beforeLoad 會先觸發，所以要用 window.location.href 強制導頁
       window.location.href = '/sign-in'
     },
   })
-
-  const checkAuth = async (): Promise<boolean> => {
-    try {
-      const response = await authApi.checkSignIn()
-      return response.errorCode === 0
-    } catch {
-      return false
-    }
-  }
 
   const login = async (credentials: SignInRequest): Promise<void> => {
     await loginMutation.mutateAsync(credentials)
@@ -83,8 +85,22 @@ export function AuthProvider({ children }: AuthProviderProps) {
   }
 
   useEffect(() => {
-    setIsLoading(false)
-  }, [])
+    const initializeAuth = async () => {
+      const token = tokenService.getAccessToken()
+
+      if (token) {
+        const userData = tokenService.extractUserData(token)
+        if (userData) {
+          setUser({ ...userData, isAuthenticated: true } as AuthUser)
+          setAccessToken(token)
+        }
+      }
+
+      setIsLoading(false)
+    }
+
+    initializeAuth()
+  }, [setAccessToken])
 
   const value: AuthContextValue = {
     isAuthenticated: !!user,
@@ -94,7 +110,6 @@ export function AuthProvider({ children }: AuthProviderProps) {
     isLogoutPending: logoutMutation.isPending,
     login,
     logout,
-    checkAuth,
   }
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>

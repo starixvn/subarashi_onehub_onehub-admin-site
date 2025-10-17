@@ -1,37 +1,29 @@
 import { apiClient } from '@/lib/api/client'
 import type {
   SignInRequest,
-  SignInResponse,
-  GetUserDataRequest,
-  GetUserDataResponse,
-  CheckSignInResponse,
+  LoginResponse,
+  RefreshTokenRequest,
+  RefreshTokenResponse,
 } from '../types'
 
 export const authApi = {
-  async signIn(credentials: SignInRequest): Promise<SignInResponse> {
-    const response = await apiClient.post<SignInResponse>(
-      '/Home/Signin',
+  async login(credentials: SignInRequest): Promise<LoginResponse> {
+    const response = await apiClient.post<LoginResponse>(
+      '/auth/login',
       credentials
     )
     return response.data
   },
 
-  async checkSignIn(): Promise<CheckSignInResponse> {
-    const response =
-      await apiClient.post<CheckSignInResponse>('/Home/CheckSignIn')
-    return response.data
-  },
-
-  async getUserData(siteId: number = 1): Promise<GetUserDataResponse> {
-    const response = await apiClient.post<GetUserDataResponse>(
-      '/Home/GetUserData',
-      { siteId } as GetUserDataRequest
+  async refreshToken(userId: number): Promise<RefreshTokenResponse> {
+    const response = await apiClient.post<RefreshTokenResponse>(
+      '/auth/refresh',
+      { userId } as RefreshTokenRequest
     )
     return response.data
   },
-  
 
-  async signOut(): Promise<void> {
-    await apiClient.post('/Home/SignOut')
+  async logout(): Promise<void> {
+    await apiClient.post('/auth/logout')
   },
 }

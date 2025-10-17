@@ -1,34 +1,27 @@
 import type { IAxiosResponse } from '@/lib/types/common'
 
 export interface SignInRequest {
-  userName: string
-  userPwd: string
+  username: string
+  password: string
 }
 
-export type SignInResponse = IAxiosResponse<'admin'>
-
-export interface GetUserDataRequest {
-  siteId: number
+export interface LoginResponseData {
+  accessToken: string
+  refreshToken: string
 }
 
-export interface GetUserDataResponseData {
-  userId: string
-  userName: string
-  userpwd: string
-  isSuper: boolean
-  loginTime: string
-  status: number
-  userType: number
-  refId: number
+export type LoginResponse = IAxiosResponse<LoginResponseData>
+
+export interface RefreshTokenRequest {
+  userId: number
 }
 
-export type GetUserDataResponse = IAxiosResponse<GetUserDataResponseData>
-
-export interface CheckSignInResponseData {
-  isAuthenticated: boolean
+export interface RefreshTokenResponseData {
+  accessToken: string
+  refreshToken: string
 }
 
-export type CheckSignInResponse = IAxiosResponse<CheckSignInResponseData>
+export type RefreshTokenResponse = IAxiosResponse<RefreshTokenResponseData>
 
 export interface GetUserMenuRequest {
   lang: string
@@ -50,16 +43,11 @@ export interface GetUserMenuResponseData {
 
 export type GetUserMenuResponse = IAxiosResponse<GetUserMenuResponseData>
 
-export interface AuthUser extends GetUserDataResponseData {
+export interface AuthUser {
+  userId: string
+  username: string
+  email: string
+  role: string[]
+  avatar?: string
   isAuthenticated: boolean
-}
-
-export interface SignInInput {
-  userName: string
-  userPwd: string
-}
-
-export interface SignInResult {
-  token: string
-  user: AuthUser
 }
