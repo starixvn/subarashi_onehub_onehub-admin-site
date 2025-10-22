@@ -1,22 +1,76 @@
-import { Button } from '@/components/ui/button'
+import { useMemo } from 'react'
+import { getRouteApi } from '@tanstack/react-router'
 import { Main } from '@/components/layout/main'
+import { CampaignsPrimaryButtons } from './components/campaign-primary-buttons'
+import { CampaignsProvider, useCampaigns } from './components/campaign-provider'
+import { CampaignDialogs } from './components/dialog/campaign-dialog'
+import { CampaignTable } from './components/table/campaign-table'
+import { CampaignStatusFilters } from './components/campaign-status-filters'
+
+const route = getRouteApi('/_authenticated/campaign-management/')
+
+function CampaignManagementContent() {
+  const search = route.useSearch()
+  const navigate = route.useNavigate()
+  const { selectedStatus, campaigns, isLoading } = useCampaigns()
+
+  const filteredCampaigns = useMemo(() => {
+    if (selectedStatus === null) {
+      return campaigns
+    }
+    return campaigns.filter((campaign) => campaign.status === selectedStatus)
+  }, [selectedStatus, campaigns])
+
+  if (isLoading) {
+    return (
+      <Main className='flex flex-1 flex-col gap-4 sm:gap-6'>
+        <div className='flex flex-wrap items-end justify-between gap-2'>
+          <div>
+            <h2 className='text-2xl font-bold tracking-tight'>
+              Campaign Management
+            </h2>
+            <p className='text-muted-foreground'>
+              Create and manage marketing campaigns with auto-generated campaign
+              codes
+            </p>
+          </div>
+        </div>
+        <div className='flex items-center justify-center py-8'>
+          <p className='text-muted-foreground'>Loading campaigns...</p>
+        </div>
+      </Main>
+    )
+  }
+
+  return (
+    <Main className='flex flex-1 flex-col gap-4 sm:gap-6'>
+      <div className='flex flex-wrap items-end justify-between gap-2'>
+        <div>
+          <h2 className='text-2xl font-bold tracking-tight'>
+            Campaign Management
+          </h2>
+          <p className='text-muted-foreground'>
+            Create and manage marketing campaigns with auto-generated campaign
+            codes
+          </p>
+        </div>
+        <CampaignsPrimaryButtons />
+      </div>
+      <CampaignStatusFilters campaigns={campaigns} />
+      <CampaignTable
+        data={filteredCampaigns}
+        search={search}
+        navigate={navigate}
+      />
+    </Main>
+  )
+}
 
 export function CampaignManagement() {
   return (
-    <Main>
-      <div className='mb-2 flex items-center justify-between space-y-2'>
-        <h1 className='text-2xl font-bold tracking-tight'>
-          Campaign Management
-        </h1>
-        <div className='flex items-center space-x-2'>
-          <Button>Create Campaign</Button>
-        </div>
-      </div>
-      <div className='space-y-4'>
-        <p className='text-muted-foreground'>
-          Manage your marketing campaigns here.
-        </p>
-      </div>
-    </Main>
+    <CampaignsProvider>
+      <CampaignManagementContent />
+      <CampaignDialogs />
+    </CampaignsProvider>
   )
 }

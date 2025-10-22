@@ -2,6 +2,7 @@ import { Cross2Icon } from '@radix-ui/react-icons'
 import { type Table } from '@tanstack/react-table'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
+import { cn } from '@/lib/utils'
 import { DataTableFacetedFilter } from './faceted-filter'
 import { DataTableViewOptions } from './view-options'
 
@@ -9,6 +10,7 @@ type DataTableToolbarProps<TData> = {
   table: Table<TData>
   searchPlaceholder?: string
   searchKey?: string
+  searchClassName?: string
   filters?: {
     columnId: string
     title: string
@@ -24,6 +26,7 @@ export function DataTableToolbar<TData>({
   table,
   searchPlaceholder = 'Filter...',
   searchKey,
+  searchClassName,
   filters = [],
 }: DataTableToolbarProps<TData>) {
   const isFiltered =
@@ -41,14 +44,14 @@ export function DataTableToolbar<TData>({
             onChange={(event) =>
               table.getColumn(searchKey)?.setFilterValue(event.target.value)
             }
-            className='h-8 w-[150px] lg:w-[250px]'
+            className={cn('h-8 w-[150px] lg:w-[250px]', searchClassName)}
           />
         ) : (
           <Input
             placeholder={searchPlaceholder}
             value={table.getState().globalFilter ?? ''}
             onChange={(event) => table.setGlobalFilter(event.target.value)}
-            className='h-8 w-[150px] lg:w-[250px]'
+            className={cn('h-8 w-[150px] lg:w-[250px]', searchClassName)}
           />
         )}
         <div className='flex gap-x-2'>
