@@ -21,10 +21,14 @@ export function AppTitle() {
             <Link
               to='/'
               onClick={() => setOpenMobile(false)}
-              className='grid flex-1 text-start text-sm leading-tight group-data-[collapsible=icon]:hidden'
+              className='flex flex-1 items-end gap-2 text-start group-data-[collapsible=icon]:hidden'
             >
-              <span className='truncate font-bold'>Shadcn-Admin</span>
-              <span className='truncate text-xs'>Vite + ShadcnUI</span>
+              <img
+                src='/images/favicon.svg'
+                alt='ONEHub'
+                className='size-8 shrink-0'
+              />
+              <span className='truncate text-base font-bold'>ONEHub Admin</span>
             </Link>
             <SidebarTrigger className='group-data-[collapsible=icon]:mx-auto' />
           </div>

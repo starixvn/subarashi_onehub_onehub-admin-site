@@ -1,6 +1,6 @@
-# Shadcn Admin Dashboard
+# ONEHub Admin Dashboard
 
-Admin Dashboard UI crafted with Shadcn and Vite. Built with responsiveness and accessibility in mind.
+Admin Dashboard UI built with React, Vite and Shadcn. Built with responsiveness and accessibility in mind.
 
 ![alt text](public/images/shadcn-admin.png)
 
