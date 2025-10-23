@@ -4,49 +4,49 @@ import { type SidebarData } from '../types'
 export const sidebarData: SidebarData = {
   navGroups: [
     {
-      title: 'Menu',
+      titleKey: 'nav.menu',
       items: [
         {
-          title: 'Campaign Management',
+          titleKey: 'nav.campaignManagement',
           url: '/campaign-management',
           icon: Megaphone,
         },
         {
-          title: 'Landing Page CMS',
+          titleKey: 'nav.landingPageCMS',
           icon: LayoutTemplate,
           items: [
             {
-              title: 'Page Management',
+              titleKey: 'nav.pageManagement',
               url: '/landing-page-cms/page-management',
             },
             {
-              title: 'Page Builder',
+              titleKey: 'nav.pageBuilder',
               url: '/landing-page-cms/page-builder',
             },
             {
-              title: 'Asset Uploader',
+              titleKey: 'nav.assetUploader',
               url: '/landing-page-cms/asset-uploader',
             },
             {
-              title: 'Register Form Management',
+              titleKey: 'nav.registerFormManagement',
               url: '/landing-page-cms/register-form-management',
             },
           ],
         },
         {
-          title: 'Link Generator',
+          titleKey: 'nav.linkGenerator',
           icon: Link2,
           items: [
             {
-              title: 'Generate Link',
+              titleKey: 'nav.generateLink',
               url: '/link-generator/generate-link',
             },
             {
-              title: 'Link Management',
+              titleKey: 'nav.linkManagement',
               url: '/link-generator/link-management',
             },
             {
-              title: 'Component Management',
+              titleKey: 'nav.componentManagement',
               url: '/link-generator/component-management',
             },
           ],

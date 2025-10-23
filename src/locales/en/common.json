@@ -1,0 +1,66 @@
+{
+  "language": {
+    "english": "English",
+    "chinese": "中文",
+    "toggle": "Toggle language"
+  },
+  "theme": {
+    "light": "Light",
+    "dark": "Dark",
+    "system": "System",
+    "toggle": "Toggle theme"
+  },
+  "nav": {
+    "menu": "Menu",
+    "dashboard": "Dashboard",
+    "tasks": "Tasks",
+    "users": "Users",
+    "campaigns": "Campaigns",
+    "campaignManagement": "Campaign Management",
+    "landingPageCMS": "Landing Page CMS",
+    "pageManagement": "Page Management",
+    "pageBuilder": "Page Builder",
+    "assetUploader": "Asset Uploader",
+    "registerFormManagement": "Register Form Management",
+    "linkGenerator": "Link Generator",
+    "generateLink": "Generate Link",
+    "linkManagement": "Link Management",
+    "componentManagement": "Component Management",
+    "pages": "Pages",
+    "settings": "Settings"
+  },
+  "common": {
+    "notifications": "Notifications",
+    "profile": "Profile",
+    "search": "Search",
+    "viewAll": "View all notifications",
+    "settings": "Settings",
+    "others": "Others",
+    "helpCenter": "Help Center",
+    "signOut": "Sign out",
+    "new": "new"
+  },
+  "search": {
+    "placeholder": "Type a command or search...",
+    "noResults": "No results found."
+  },
+  "auth": {
+    "signIn": "Sign in",
+    "signInTitle": "Sign in",
+    "signInDescription": "Enter your account and password below to log into your account",
+    "appTitle": "ONEHub Admin",
+    "username": "Username",
+    "password": "Password",
+    "usernamePlaceholder": "admin",
+    "passwordPlaceholder": "********",
+    "languageLabel": "Language",
+    "validation": {
+      "usernameRequired": "Please enter your username",
+      "passwordRequired": "Please enter your password",
+      "passwordMinLength": "Password must be at least 7 characters long"
+    },
+    "errors": {
+      "loginFailed": "Login failed"
+    }
+  }
+}

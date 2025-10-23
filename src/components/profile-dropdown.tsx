@@ -1,5 +1,6 @@
 import { Link } from '@tanstack/react-router'
 import { HelpCircle, LogOut, Settings, User } from 'lucide-react'
+import { useTranslation } from 'react-i18next'
 import useDialogState from '@/hooks/use-dialog-state'
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
 import { Button } from '@/components/ui/button'
@@ -16,6 +17,7 @@ import {
 import { SignOutDialog } from '@/components/sign-out-dialog'
 
 export function ProfileDropdown() {
+  const { t } = useTranslation()
   const [open, setOpen] = useDialogState()
 
   return (
@@ -43,21 +45,21 @@ export function ProfileDropdown() {
             <DropdownMenuItem asChild>
               <Link to='/profile'>
                 <User className='me-2 h-4 w-4' />
-                Profile
+                {t('common.profile')}
                 <DropdownMenuShortcut>⇧⌘P</DropdownMenuShortcut>
               </Link>
             </DropdownMenuItem>
             <DropdownMenuItem asChild>
               <Link to='/settings'>
                 <Settings className='me-2 h-4 w-4' />
-                Settings
+                {t('common.settings')}
                 <DropdownMenuShortcut>⌘S</DropdownMenuShortcut>
               </Link>
             </DropdownMenuItem>
             <DropdownMenuItem asChild>
               <Link to='/help-center'>
                 <HelpCircle className='me-2 h-4 w-4' />
-                Help Center
+                {t('common.helpCenter')}
                 <DropdownMenuShortcut>⌘H</DropdownMenuShortcut>
               </Link>
             </DropdownMenuItem>
@@ -65,7 +67,7 @@ export function ProfileDropdown() {
           <DropdownMenuSeparator />
           <DropdownMenuItem onClick={() => setOpen(true)}>
             <LogOut className='me-2 h-4 w-4' />
-            Sign out
+            {t('common.signOut')}
             <DropdownMenuShortcut>⇧⌘Q</DropdownMenuShortcut>
           </DropdownMenuItem>
         </DropdownMenuContent>

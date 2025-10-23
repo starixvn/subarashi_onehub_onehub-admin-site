@@ -6,6 +6,7 @@ import { SearchProvider } from '@/context/search-provider'
 import { SidebarInset, SidebarProvider } from '@/components/ui/sidebar'
 import { AppSidebar } from '@/components/layout/app-sidebar'
 import { Header } from '@/components/layout/header'
+import { LanguageSwitch } from '@/components/language-switch'
 import { NotificationButton } from '@/components/notification-button'
 import { ProfileDropdown } from '@/components/profile-dropdown'
 import { Search } from '@/components/search'
@@ -46,6 +47,7 @@ export function AuthenticatedLayout({ children }: AuthenticatedLayoutProps) {
                 </div>
                 <div className='flex flex-shrink-0 items-center space-x-4'>
                   <NotificationButton />
+                  <LanguageSwitch />
                   <ThemeSwitch />
                   <ProfileDropdown />
                 </div>

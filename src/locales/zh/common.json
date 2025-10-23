@@ -1,0 +1,66 @@
+{
+  "language": {
+    "english": "English",
+    "chinese": "中文",
+    "toggle": "切换语言"
+  },
+  "theme": {
+    "light": "浅色",
+    "dark": "深色",
+    "system": "系统",
+    "toggle": "切换主题"
+  },
+  "nav": {
+    "menu": "菜单",
+    "dashboard": "仪表板",
+    "tasks": "任务",
+    "users": "用户",
+    "campaigns": "活动",
+    "campaignManagement": "活动管理",
+    "landingPageCMS": "着陆页CMS",
+    "pageManagement": "页面管理",
+    "pageBuilder": "页面构建器",
+    "assetUploader": "资源上传",
+    "registerFormManagement": "注册表单管理",
+    "linkGenerator": "链接生成器",
+    "generateLink": "生成链接",
+    "linkManagement": "链接管理",
+    "componentManagement": "组件管理",
+    "pages": "页面",
+    "settings": "设置"
+  },
+  "common": {
+    "notifications": "通知",
+    "profile": "个人资料",
+    "search": "搜索",
+    "viewAll": "查看所有通知",
+    "settings": "设置",
+    "others": "其他",
+    "helpCenter": "帮助中心",
+    "signOut": "退出登录",
+    "new": "新"
+  },
+  "search": {
+    "placeholder": "输入命令或搜索...",
+    "noResults": "未找到结果。"
+  },
+  "auth": {
+    "signIn": "登录",
+    "signInTitle": "登录",
+    "signInDescription": "在下方输入您的账号和密码以登录您的账户",
+    "appTitle": "ONEHub 管理后台",
+    "username": "用户名",
+    "password": "密码",
+    "usernamePlaceholder": "admin",
+    "passwordPlaceholder": "********",
+    "languageLabel": "语言",
+    "validation": {
+      "usernameRequired": "请输入您的用户名",
+      "passwordRequired": "请输入您的密码",
+      "passwordMinLength": "密码至少需要7个字符"
+    },
+    "errors": {
+      "loginFailed": "登录失败"
+    }
+  }
+}

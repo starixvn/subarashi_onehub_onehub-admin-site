@@ -1,5 +1,6 @@
 import { Link } from '@tanstack/react-router'
 import { Bell } from 'lucide-react'
+import { useTranslation } from 'react-i18next'
 import { Badge } from '@/components/ui/badge'
 import { Button } from '@/components/ui/button'
 import {
@@ -13,6 +14,7 @@ import {
 import { ScrollArea } from '@/components/ui/scroll-area'
 
 export function NotificationButton() {
+  const { t } = useTranslation()
   const notifications = [
     {
       id: 1,
@@ -56,15 +58,15 @@ export function NotificationButton() {
               {unreadCount}
             </Badge>
           )}
-          <span className='sr-only'>Notifications</span>
+          <span className='sr-only'>{t('common.notifications')}</span>
         </Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent align='end' className='w-80'>
         <DropdownMenuLabel className='flex items-center justify-between'>
-          <span>Notifications</span>
+          <span>{t('common.notifications')}</span>
           {unreadCount > 0 && (
             <Badge variant='secondary' className='ml-auto'>
-              {unreadCount} new
+              {unreadCount} {t('common.new')}
             </Badge>
           )}
         </DropdownMenuLabel>
@@ -100,7 +102,7 @@ export function NotificationButton() {
             to='/notifications'
             className='w-full cursor-pointer justify-center text-center'
           >
-            View all notifications
+            {t('common.viewAll')}
           </Link>
         </DropdownMenuItem>
       </DropdownMenuContent>
