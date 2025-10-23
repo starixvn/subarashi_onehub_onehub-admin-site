@@ -1,4 +1,5 @@
 import { useMemo } from 'react'
+import { useTranslation } from 'react-i18next'
 import { getRouteApi } from '@tanstack/react-router'
 import { Main } from '@/components/layout/main'
 import { CampaignsPrimaryButtons } from './components/campaign-primary-buttons'
@@ -10,6 +11,7 @@ import { CampaignStatusFilters } from './components/campaign-status-filters'
 const route = getRouteApi('/_authenticated/campaign-management/')
 
 function CampaignManagementContent() {
+  const { t } = useTranslation('campaign-management')
   const search = route.useSearch()
   const navigate = route.useNavigate()
   const { selectedStatus, campaigns, isLoading } = useCampaigns()
@@ -27,16 +29,13 @@ function CampaignManagementContent() {
         <div className='flex flex-wrap items-end justify-between gap-2'>
           <div>
             <h2 className='text-2xl font-bold tracking-tight'>
-              Campaign Management
+              {t('page.title')}
             </h2>
-            <p className='text-muted-foreground'>
-              Create and manage marketing campaigns with auto-generated campaign
-              codes
-            </p>
+            <p className='text-muted-foreground'>{t('page.description')}</p>
           </div>
         </div>
         <div className='flex items-center justify-center py-8'>
-          <p className='text-muted-foreground'>Loading campaigns...</p>
+          <p className='text-muted-foreground'>{t('page.loading')}</p>
         </div>
       </Main>
     )
@@ -47,12 +46,9 @@ function CampaignManagementContent() {
       <div className='flex flex-wrap items-end justify-between gap-2'>
         <div>
           <h2 className='text-2xl font-bold tracking-tight'>
-            Campaign Management
+            {t('page.title')}
           </h2>
-          <p className='text-muted-foreground'>
-            Create and manage marketing campaigns with auto-generated campaign
-            codes
-          </p>
+          <p className='text-muted-foreground'>{t('page.description')}</p>
         </div>
         <CampaignsPrimaryButtons />
       </div>

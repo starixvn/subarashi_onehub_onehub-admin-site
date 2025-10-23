@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react'
+import { useTranslation } from 'react-i18next'
 import {
   type SortingState,
   type VisibilityState,
@@ -25,12 +26,13 @@ import { DataTablePagination, DataTableToolbar } from '@/components/data-table'
 import { type Campaign } from '../../data/schema'
 import { CampaignMultiDeleteDialog } from '../dialog/campaign-multi-delete-dialog'
 import { CampaignBulkActions } from './campaign-bulk-actions'
-import { campaignColumns as columns } from './campaign-columns'
+import { getCampaignColumns } from './campaign-columns'
 
 declare module '@tanstack/react-table' {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   interface ColumnMeta<TData, TValue> {
     className: string
+    displayName?: string
   }
 }
 
@@ -41,17 +43,14 @@ type DataTableProps = {
 }
 
 export function CampaignTable({ data, search, navigate }: DataTableProps) {
-  // Local UI-only states
+  const { t } = useTranslation('campaign-management')
   const [rowSelection, setRowSelection] = useState({})
   const [columnVisibility, setColumnVisibility] = useState<VisibilityState>({})
   const [sorting, setSorting] = useState<SortingState>([])
   const [isDeleteDialogOpen, setIsDeleteDialogOpen] = useState(false)
 
-  // Local state management for table (uncomment to use local-only state, not synced with URL)
-  // const [columnFilters, onColumnFiltersChange] = useState<ColumnFiltersState>([])
-  // const [pagination, onPaginationChange] = useState<PaginationState>({ pageIndex: 0, pageSize: 10 })
+  const columns = getCampaignColumns(t)
 
-  // Synced with URL states (keys/defaults mirror campaign route search schema)
   const {
     columnFilters,
     onColumnFiltersChange,
@@ -108,7 +107,7 @@ export function CampaignTable({ data, search, navigate }: DataTableProps) {
     >
       <DataTableToolbar
         table={table}
-        searchPlaceholder='Search campaigns by name, code, or description...'
+        searchPlaceholder={t('table.search')}
         searchClassName='w-[250px] lg:w-[350px]'
         filters={[]}
       />
@@ -169,7 +168,7 @@ export function CampaignTable({ data, search, navigate }: DataTableProps) {
                   colSpan={columns.length}
                   className='h-24 text-center'
                 >
-                  No results.
+                  {t('table.noResults')}
                 </TableCell>
               </TableRow>
             )}

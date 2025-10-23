@@ -1,4 +1,5 @@
 import { type Table } from '@tanstack/react-table'
+import { useTranslation } from 'react-i18next'
 import { Pause, Play, Ban, FileText, Trash2 } from 'lucide-react'
 import { toast } from 'sonner'
 import { sleep } from '@/lib/utils'
@@ -20,6 +21,7 @@ export function CampaignBulkActions({
   table,
   onDeleteClick,
 }: CampaignBulkActionsProps) {
+  const { t } = useTranslation('campaign-management')
   const selectedRows = table.getFilteredSelectedRowModel().rows
 
   const pausedCount = selectedRows.filter(
@@ -35,47 +37,53 @@ export function CampaignBulkActions({
     (row) => row.original.status !== 0
   ).length
 
-  const handleStatusChange = (status: number, statusName: string) => {
+  const handleStatusChange = (status: number, statusKey: string) => {
     const affectedCampaigns = selectedRows.filter(
       (row) => row.original.status !== status
     )
 
     if (affectedCampaigns.length === 0) {
-      toast.error(
-        `All selected campaigns are already ${statusName.toLowerCase()}`
-      )
+      toast.error(t('bulkActionsToast.alreadyStatus', { status: statusKey }))
       return
     }
 
     toast.promise(sleep(1500), {
-      loading: `Updating campaigns to ${statusName}...`,
+      loading: t('bulkActionsToast.updating', { status: statusKey }),
       success: () => {
         table.resetRowSelection()
-        return `Updated ${affectedCampaigns.length} campaign${affectedCampaigns.length > 1 ? 's' : ''} to ${statusName}`
+        return t('bulkActionsToast.updated', {
+          count: affectedCampaigns.length,
+          status: statusKey,
+        })
       },
-      error: 'Failed to update campaigns',
+      error: t('bulkActionsToast.updateFailed'),
     })
   }
 
   return (
-    <BulkActionsToolbar table={table} entityName='campaign'>
+    <BulkActionsToolbar
+      table={table}
+      entityName={t('entity', { count: selectedRows.length })}
+    >
       <Tooltip>
         <TooltipTrigger asChild>
           <Button
             variant='outline'
             size='icon'
             disabled={pausedCount === 0}
-            onClick={() => handleStatusChange(2, 'Paused')}
+            onClick={() => handleStatusChange(2, t('statusFilters.paused'))}
             className='size-8'
-            aria-label={`Change to Paused (${pausedCount} affected)`}
-            title={`Change to Paused (${pausedCount} affected)`}
+            aria-label={t('bulkActions.changeToPausedCount', {
+              count: pausedCount,
+            })}
+            title={t('bulkActions.changeToPausedCount', { count: pausedCount })}
           >
             <Pause />
-            <span className='sr-only'>Change to Paused</span>
+            <span className='sr-only'>{t('bulkActions.changeToPaused')}</span>
           </Button>
         </TooltipTrigger>
         <TooltipContent>
-          <p>Change to Paused ({pausedCount} affected)</p>
+          <p>{t('bulkActions.changeToPausedCount', { count: pausedCount })}</p>
         </TooltipContent>
       </Tooltip>
 
@@ -85,17 +93,19 @@ export function CampaignBulkActions({
             variant='outline'
             size='icon'
             disabled={activeCount === 0}
-            onClick={() => handleStatusChange(1, 'Active')}
+            onClick={() => handleStatusChange(1, t('statusFilters.active'))}
             className='size-8'
-            aria-label={`Change to Active (${activeCount} affected)`}
-            title={`Change to Active (${activeCount} affected)`}
+            aria-label={t('bulkActions.changeToActiveCount', {
+              count: activeCount,
+            })}
+            title={t('bulkActions.changeToActiveCount', { count: activeCount })}
           >
             <Play />
-            <span className='sr-only'>Change to Active</span>
+            <span className='sr-only'>{t('bulkActions.changeToActive')}</span>
           </Button>
         </TooltipTrigger>
         <TooltipContent>
-          <p>Change to Active ({activeCount} affected)</p>
+          <p>{t('bulkActions.changeToActiveCount', { count: activeCount })}</p>
         </TooltipContent>
       </Tooltip>
 
@@ -105,17 +115,23 @@ export function CampaignBulkActions({
             variant='outline'
             size='icon'
             disabled={inactiveCount === 0}
-            onClick={() => handleStatusChange(3, 'Inactive')}
+            onClick={() => handleStatusChange(3, t('statusFilters.inactive'))}
             className='size-8'
-            aria-label={`Change to Inactive (${inactiveCount} affected)`}
-            title={`Change to Inactive (${inactiveCount} affected)`}
+            aria-label={t('bulkActions.changeToInactiveCount', {
+              count: inactiveCount,
+            })}
+            title={t('bulkActions.changeToInactiveCount', {
+              count: inactiveCount,
+            })}
           >
             <Ban />
-            <span className='sr-only'>Change to Inactive</span>
+            <span className='sr-only'>{t('bulkActions.changeToInactive')}</span>
           </Button>
         </TooltipTrigger>
         <TooltipContent>
-          <p>Change to Inactive ({inactiveCount} affected)</p>
+          <p>
+            {t('bulkActions.changeToInactiveCount', { count: inactiveCount })}
+          </p>
         </TooltipContent>
       </Tooltip>
 
@@ -125,17 +141,19 @@ export function CampaignBulkActions({
             variant='outline'
             size='icon'
             disabled={draftCount === 0}
-            onClick={() => handleStatusChange(0, 'Draft')}
+            onClick={() => handleStatusChange(0, t('statusFilters.draft'))}
             className='size-8'
-            aria-label={`Change to Draft (${draftCount} affected)`}
-            title={`Change to Draft (${draftCount} affected)`}
+            aria-label={t('bulkActions.changeToDraftCount', {
+              count: draftCount,
+            })}
+            title={t('bulkActions.changeToDraftCount', { count: draftCount })}
           >
             <FileText />
-            <span className='sr-only'>Change to Draft</span>
+            <span className='sr-only'>{t('bulkActions.changeToDraft')}</span>
           </Button>
         </TooltipTrigger>
         <TooltipContent>
-          <p>Change to Draft ({draftCount} affected)</p>
+          <p>{t('bulkActions.changeToDraftCount', { count: draftCount })}</p>
         </TooltipContent>
       </Tooltip>
 
@@ -146,15 +164,15 @@ export function CampaignBulkActions({
             size='icon'
             onClick={onDeleteClick}
             className='size-8'
-            aria-label='Delete all selected campaigns'
-            title='Delete all selected campaigns'
+            aria-label={t('bulkActions.deleteSelected')}
+            title={t('bulkActions.deleteSelected')}
           >
             <Trash2 />
-            <span className='sr-only'>Delete all selected campaigns</span>
+            <span className='sr-only'>{t('bulkActions.deleteSelected')}</span>
           </Button>
         </TooltipTrigger>
         <TooltipContent>
-          <p>Delete all selected campaigns</p>
+          <p>{t('bulkActions.deleteSelected')}</p>
         </TooltipContent>
       </Tooltip>
     </BulkActionsToolbar>

@@ -1,6 +1,7 @@
 'use client'
 
 import { z } from 'zod'
+import { useTranslation } from 'react-i18next'
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { showSubmittedData } from '@/lib/show-submitted-data'
@@ -27,14 +28,13 @@ import { SelectDropdown } from '@/components/select-dropdown'
 import { status } from '../../data/data'
 import { type Campaign } from '../../data/schema'
 
-const formSchema = z.object({
-  code: z.string().optional(),
-  name: z.string().min(1, 'Name is required.'),
-  description: z.string().min(1, 'Description is required.'),
-  status: z.number().min(0, 'Status is required.'),
-})
-
-type CampaignForm = z.infer<typeof formSchema>
+const getFormSchema = (t: (key: string) => string) =>
+  z.object({
+    code: z.string().optional(),
+    name: z.string().min(1, t('dialog.form.nameRequired')),
+    description: z.string().min(1, t('dialog.form.descriptionRequired')),
+    status: z.number().min(0, t('dialog.form.statusRequired')),
+  })
 
 type CampaignActionDialogProps = {
   currentRow?: Campaign
@@ -47,6 +47,9 @@ export function CampaignActionDialog({
   open,
   onOpenChange,
 }: CampaignActionDialogProps) {
+  const { t } = useTranslation('campaign-management')
+  const formSchema = getFormSchema(t)
+  type CampaignForm = z.infer<typeof formSchema>
   const isEdit = !!currentRow
   const form = useForm<CampaignForm>({
     resolver: zodResolver(formSchema),
@@ -80,13 +83,12 @@ export function CampaignActionDialog({
       <DialogContent className='sm:max-w-lg'>
         <DialogHeader className='text-start'>
           <DialogTitle>
-            {isEdit ? 'Edit Campaign' : 'Add New Campaign'}
+            {isEdit ? t('dialog.edit.title') : t('dialog.create.title')}
           </DialogTitle>
           <DialogDescription>
             {isEdit
-              ? 'Update the campaign here. '
-              : 'Create new campaign here. '}
-            Click save when you&apos;re done.
+              ? t('dialog.edit.description')
+              : t('dialog.create.description')}
           </DialogDescription>
         </DialogHeader>
         <div className='w-[calc(100%+0.75rem)] overflow-y-auto py-1 pe-3'>
@@ -103,11 +105,11 @@ export function CampaignActionDialog({
                   render={({ field }) => (
                     <FormItem className='grid grid-cols-6 items-center space-y-0 gap-x-4 gap-y-1'>
                       <FormLabel className='col-span-2 text-end'>
-                        Code
+                        {t('dialog.form.code')}
                       </FormLabel>
                       <FormControl>
                         <Input
-                          placeholder='CAMP001'
+                          placeholder={t('dialog.form.codePlaceholder')}
                           className='col-span-4'
                           autoComplete='off'
                           disabled
@@ -125,11 +127,14 @@ export function CampaignActionDialog({
                 render={({ field }) => (
                   <FormItem className='grid grid-cols-6 items-center space-y-0 gap-x-4 gap-y-1'>
                     <FormLabel className='col-span-2 text-end'>
-                      Name <span className='text-destructive'>*</span>
+                      {t('dialog.form.name')}{' '}
+                      <span className='text-destructive'>
+                        {t('dialog.form.requiredField')}
+                      </span>
                     </FormLabel>
                     <FormControl>
                       <Input
-                        placeholder='Summer Campaign'
+                        placeholder={t('dialog.form.namePlaceholder')}
                         className='col-span-4'
                         autoComplete='off'
                         {...field}
@@ -145,11 +150,14 @@ export function CampaignActionDialog({
                 render={({ field }) => (
                   <FormItem className='grid grid-cols-6 items-start space-y-0 gap-x-4 gap-y-1'>
                     <FormLabel className='col-span-2 pt-2 text-end'>
-                      Description <span className='text-destructive'>*</span>
+                      {t('dialog.form.description')}{' '}
+                      <span className='text-destructive'>
+                        {t('dialog.form.requiredField')}
+                      </span>
                     </FormLabel>
                     <FormControl>
                       <Textarea
-                        placeholder='Campaign description...'
+                        placeholder={t('dialog.form.descriptionPlaceholder')}
                         className='col-span-4 min-h-24'
                         {...field}
                       />
@@ -164,12 +172,15 @@ export function CampaignActionDialog({
                 render={({ field }) => (
                   <FormItem className='grid grid-cols-6 items-center space-y-0 gap-x-4 gap-y-1'>
                     <FormLabel className='col-span-2 text-end'>
-                      Status <span className='text-destructive'>*</span>
+                      {t('dialog.form.status')}{' '}
+                      <span className='text-destructive'>
+                        {t('dialog.form.requiredField')}
+                      </span>
                     </FormLabel>
                     <SelectDropdown
                       defaultValue={String(field.value)}
                       onValueChange={(value) => field.onChange(Number(value))}
-                      placeholder='Select a status'
+                      placeholder={t('dialog.form.statusPlaceholder')}
                       className='col-span-4'
                       items={status.map(({ label, value }) => ({
                         label,
@@ -182,8 +193,7 @@ export function CampaignActionDialog({
               />
               {isStatusModified && (
                 <p className='px-0.5 text-sm font-medium text-amber-600 dark:text-amber-500'>
-                  Only active campaigns are available for selection when
-                  creating a new landing page.
+                  {t('dialog.form.statusWarning')}
                 </p>
               )}
             </form>
@@ -191,7 +201,7 @@ export function CampaignActionDialog({
         </div>
         <DialogFooter>
           <Button type='submit' form='campaign-form' disabled={!isFormValid}>
-            Save changes
+            {t('dialog.saveChanges')}
           </Button>
         </DialogFooter>
       </DialogContent>

@@ -3,13 +3,17 @@ import { initReactI18next } from 'react-i18next'
 import LanguageDetector from 'i18next-browser-languagedetector'
 import enCommon from '@/locales/en/common.json'
 import zhCommon from '@/locales/zh/common.json'
+import enCampaignManagement from '@/locales/en/campaign-management.json'
+import zhCampaignManagement from '@/locales/zh/campaign-management.json'
 
 const resources = {
   en: {
     common: enCommon,
+    'campaign-management': enCampaignManagement,
   },
   zh: {
     common: zhCommon,
+    'campaign-management': zhCampaignManagement,
   },
 }
 
@@ -20,7 +24,7 @@ i18n
     resources,
     fallbackLng: 'en',
     defaultNS: 'common',
-    ns: ['common'],
+    ns: ['common', 'campaign-management'],
     interpolation: {
       escapeValue: false,
     },

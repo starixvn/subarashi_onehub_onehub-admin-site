@@ -1,4 +1,5 @@
 import { useMemo } from 'react'
+import { useTranslation } from 'react-i18next'
 import {
   BarChart3,
   CheckCircle2,
@@ -17,6 +18,7 @@ type CampaignStatusFiltersProps = {
 export function CampaignStatusFilters({
   campaigns,
 }: CampaignStatusFiltersProps) {
+  const { t } = useTranslation('campaign-management')
   const { selectedStatus, setSelectedStatus } = useCampaigns()
 
   const statusCounts = useMemo(() => {
@@ -32,7 +34,7 @@ export function CampaignStatusFilters({
   return (
     <div className='grid gap-4 sm:grid-cols-2 lg:grid-cols-5'>
       <StatusFilterCard
-        title='Total Campaigns'
+        title={t('statusFilters.total')}
         count={statusCounts.total}
         icon={BarChart3}
         variant='rainbow'
@@ -40,7 +42,7 @@ export function CampaignStatusFilters({
         onClick={() => setSelectedStatus(null)}
       />
       <StatusFilterCard
-        title='Active Campaigns'
+        title={t('statusFilters.active')}
         count={statusCounts.active}
         icon={CheckCircle2}
         variant='success'
@@ -48,7 +50,7 @@ export function CampaignStatusFilters({
         onClick={() => setSelectedStatus(1)}
       />
       <StatusFilterCard
-        title='Draft Campaigns'
+        title={t('statusFilters.draft')}
         count={statusCounts.draft}
         icon={PenLine}
         variant='warning'
@@ -56,7 +58,7 @@ export function CampaignStatusFilters({
         onClick={() => setSelectedStatus(0)}
       />
       <StatusFilterCard
-        title='Paused Campaigns'
+        title={t('statusFilters.paused')}
         count={statusCounts.paused}
         icon={Pause}
         variant='info'
@@ -64,7 +66,7 @@ export function CampaignStatusFilters({
         onClick={() => setSelectedStatus(2)}
       />
       <StatusFilterCard
-        title='Inactive Campaigns'
+        title={t('statusFilters.inactive')}
         count={statusCounts.inactive}
         icon={Trash2}
         variant='secondary'

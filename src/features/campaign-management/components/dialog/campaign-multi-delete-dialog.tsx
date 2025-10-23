@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import { type Table } from '@tanstack/react-table'
+import { useTranslation } from 'react-i18next'
 import { AlertTriangle } from 'lucide-react'
 import { toast } from 'sonner'
 import { sleep } from '@/lib/utils'
@@ -15,35 +16,37 @@ type CampaignMultiDeleteDialogProps = {
   table: Table<Campaign>
 }
 
-const CONFIRM_WORD = 'DELETE'
-
 export function CampaignMultiDeleteDialog({
   open,
   onOpenChange,
   table,
 }: CampaignMultiDeleteDialogProps) {
+  const { t } = useTranslation('campaign-management')
   const [value, setValue] = useState('')
 
   const selectedRows = table.getFilteredSelectedRowModel().rows
+  const CONFIRM_WORD = t('dialog.multiDelete.confirmWord')
 
   const handleDelete = () => {
     if (value.trim() !== CONFIRM_WORD) {
-      toast.error(`Please type "${CONFIRM_WORD}" to confirm.`)
+      toast.error(
+        t('dialog.multiDeleteToast.confirmRequired', { word: CONFIRM_WORD })
+      )
       return
     }
 
     onOpenChange(false)
 
     toast.promise(sleep(2000), {
-      loading: 'Deleting campaigns...',
+      loading: t('dialog.multiDeleteToast.deleting'),
       success: () => {
         table.resetRowSelection()
         setValue('')
-        return `Deleted ${selectedRows.length} ${
-          selectedRows.length > 1 ? 'campaigns' : 'campaign'
-        }`
+        return t('dialog.multiDeleteToast.deleted', {
+          count: selectedRows.length,
+        })
       },
-      error: 'Failed to delete campaigns',
+      error: t('dialog.multiDeleteToast.deleteFailed'),
     })
   }
 
@@ -64,36 +67,38 @@ export function CampaignMultiDeleteDialog({
             className='stroke-destructive me-1 inline-block'
             size={18}
           />{' '}
-          Delete {selectedRows.length}{' '}
-          {selectedRows.length > 1 ? 'campaigns' : 'campaign'}
+          {t('dialog.multiDelete.title', { count: selectedRows.length })}
         </span>
       }
       desc={
         <div className='space-y-4'>
           <p className='mb-2'>
-            Are you sure you want to delete the selected campaigns? <br />
-            This action cannot be undone. This will permanently delete the
-            selected campaigns and all associated data.
+            {t('dialog.multiDelete.message')} <br />
+            {t('dialog.multiDelete.description')}
           </p>
 
           <Label className='my-4 flex flex-col items-start gap-1.5'>
-            <span>Confirm by typing "{CONFIRM_WORD}":</span>
+            <span>
+              {t('dialog.multiDelete.confirmLabel', { word: CONFIRM_WORD })}
+            </span>
             <Input
               value={value}
               onChange={(e) => setValue(e.target.value)}
-              placeholder={`Type "${CONFIRM_WORD}" to confirm.`}
+              placeholder={t('dialog.multiDelete.confirmPlaceholder', {
+                word: CONFIRM_WORD,
+              })}
             />
           </Label>
 
           <Alert variant='destructive'>
-            <AlertTitle>Warning!</AlertTitle>
+            <AlertTitle>{t('dialog.multiDelete.warning')}</AlertTitle>
             <AlertDescription>
-              Please be careful, this operation cannot be rolled back.
+              {t('dialog.multiDelete.warningMessage')}
             </AlertDescription>
           </Alert>
         </div>
       }
-      confirmText='Delete'
+      confirmText={t('dialog.multiDelete.confirm')}
       destructive
     />
   )

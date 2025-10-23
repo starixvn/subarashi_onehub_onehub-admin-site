@@ -1,5 +1,6 @@
 'use client'
 
+import { useTranslation } from 'react-i18next'
 import { AlertTriangle } from 'lucide-react'
 import { showSubmittedData } from '@/lib/show-submitted-data'
 import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert'
@@ -17,6 +18,7 @@ export function CampaignDeleteDialog({
   onOpenChange,
   currentRow,
 }: CampaignDeleteDialogProps) {
+  const { t } = useTranslation('campaign-management')
   const handleDelete = () => {
     onOpenChange(false)
     showSubmittedData(currentRow, 'The following campaign has been deleted:')
@@ -33,28 +35,27 @@ export function CampaignDeleteDialog({
             className='stroke-destructive me-1 inline-block'
             size={18}
           />{' '}
-          Delete Campaign
+          {t('dialog.delete.title')}
         </span>
       }
       desc={
         <div className='space-y-4'>
           <p className='mb-2'>
-            Are you sure you want to delete{' '}
+            {t('dialog.delete.message')}{' '}
             <span className='font-bold'>{currentRow.name}</span>?
             <br />
-            This action cannot be undone. This will permanently delete the
-            campaign and all associated data.
+            {t('dialog.delete.description')}
           </p>
 
           <Alert variant='destructive'>
-            <AlertTitle>Warning!</AlertTitle>
+            <AlertTitle>{t('dialog.delete.warning')}</AlertTitle>
             <AlertDescription>
-              Please be careful, this operation cannot be rolled back.
+              {t('dialog.delete.warningMessage')}
             </AlertDescription>
           </Alert>
         </div>
       }
-      confirmText='Delete'
+      confirmText={t('dialog.delete.confirm')}
       destructive
     />
   )
